@@ -5,33 +5,7 @@
 </template>
 
 <script>
-import Vue from "vue";
-import VueRouter from "vue-router";
-
-import Question from "./components/Question/Question.vue";
-import BackgroundInfo from "./components/BackgroundInfo/BackgroundInfo.vue";
-
-Vue.use(VueRouter);
-
-const routes = [
-  {
-    path: "/",
-    redirect: "/BackgroundInfo",
-  },
-  {
-    name: "背景信息",
-    path: "/BackgroundInfo",
-    component: BackgroundInfo,
-  },
-  {
-    name: "作答问题",
-    path: "/Question",
-    component: Question,
-  },
-];
-const router = new VueRouter({
-  routes,
-});
+import router from '../config/routes'
 
 export default {
   name: "App",

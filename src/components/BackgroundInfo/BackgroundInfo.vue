@@ -8,7 +8,7 @@
         <el-col class="label">
           <span class="required">*</span>学生姓名：</el-col
         >
-        <el-col class="inputInfo">
+        <el-col class="inputInfo" id="studentName">
           <el-input placeholder="请输入" v-model="studentName" />
         </el-col>
       </el-row>
@@ -17,26 +17,31 @@
         <el-col class="label">
           <span class="required">*</span>就读学校：</el-col
         >
-        <el-col class="inputInfo">
+        <el-col class="inputInfo" id="school">
           <el-input placeholder="请输入" v-model="school" />
         </el-col>
       </el-row>
 
       <el-row type="flex" justify="center" class="item">
         <el-col class="label">
-          <span class="required">*</span>学生年龄：</el-col
+          <span class="required">*</span>出生日期：</el-col
         >
-        <el-col class="inputInfo">
-          <el-input placeholder="请输入" v-model="studentAge" />
+        <el-col class="inputInfo" id="birthday">
+          <el-date-picker
+            placeholder="请输入"
+            v-model="birthday"
+            type="date"
+            :picker-options="pickerOptions"
+          />
         </el-col>
       </el-row>
 
       <el-row type="flex" justify="center" class="item">
         <el-col class="label">
-          <span class="required">*</span>就读年级：</el-col
+          <span class="required">*</span>就读班级：</el-col
         >
-        <el-col class="inputInfo">
-          <el-input placeholder="请输入" v-model="studyAge" />
+        <el-col class="inputInfo" id="grade">
+          <el-input placeholder="请输入" v-model="grade" />
         </el-col>
       </el-row>
 
@@ -47,7 +52,16 @@
 
 <script>
 import Vue from "vue";
-import { Form, FormItem, Input, Button, Row, Col } from "element-ui";
+import {
+  Form,
+  FormItem,
+  Input,
+  Button,
+  Row,
+  Col,
+  DatePicker,
+} from "element-ui";
+import { isExits } from "../../services/config";
 
 Vue.use(Form);
 Vue.use(FormItem);
@@ -55,6 +69,7 @@ Vue.use(Input);
 Vue.use(Button);
 Vue.use(Row);
 Vue.use(Col);
+Vue.use(DatePicker);
 
 export default {
   name: "BackgroundInfo",
@@ -62,74 +77,115 @@ export default {
     return {
       studentName: "",
       school: "",
-      studentAge: "",
-      studyAge: "",
+      birthday: "",
+      grade: "",
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() >= Date.now();
+        },
+      },
     };
   },
   methods: {
-    submit: function () {
-      console.log(
-        this.$data.studentName,
-        this.$data.school,
-        this.$data.studentAge,
-        this.$data.studyAge
-      );
-      this.$router.push("/Question");
+    submit: async function () {
+      const query = {
+        studentName: this.$data.studentName,
+        school: this.$data.school,
+        birthday: this.$data.birthday.toLocaleString().split(" ")[0],
+        grade: this.$data.grade,
+      };
+      let complete = true; // 验证是否填写完整
+      for (let field in query) {
+        if (!query[field].replace(/(^\s*)|(\s*$) /g, "")) {
+          complete = false;
+          const el = document.getElementById(field);
+          const className = el.className;
+          el.className = `${className} redBorder`;
+          setTimeout(() => {
+            el.className = `${className} null`;
+          }, 1000);
+        }
+      }
+
+      if (complete) {
+        // 验证是否重复填写问卷
+        let result = await isExits(query);
+        result=result.data
+        console.log(result)
+        if (!result.data) {
+          this.$router.push({
+            path: "/Question",
+            query,
+          });
+        }else{
+          this.$router.push({
+            path: "/RepeatTip",
+            query,
+          });
+        }
+      }
     },
   },
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .info {
   width: 100vw;
   text-align: center;
   overflow-y: scroll;
-  .title {
+  /deep/ .title {
     display: block;
     font-size: 5vw;
     margin: 10vw auto;
   }
-  .tips {
+  /deep/ .tips {
     display: block;
     font-size: 4vw;
   }
-  .form {
+  /deep/ .form {
     margin-top: 5vw;
     * {
       font-size: 3vw !important;
     }
-    .item {
+    /deep/ .item {
       margin-bottom: 8px;
     }
-    .label {
+    /deep/ .label {
       display: inline-block;
       width: 21vw;
       text-align: right;
-      .required {
+      /deep/ .required {
         color: red;
       }
     }
-    .inputInfo {
+    /deep/ .inputInfo {
       display: inline-block;
       width: 39vw;
       height: 5vw !important;
       min-height: 30px;
-      .el-input {
+      /deep/ .el-input {
         width: 100% !important;
         height: 100% !important;
-        .el-input__inner {
+        /deep/ .el-input__inner {
           width: 100% !important;
           height: 100% !important;
         }
       }
     }
-    .submit {
+    /deep/ .submit {
       display: inline-block;
       margin: 0 auto;
       margin-top: 8px;
       width: 50vw;
     }
   }
+}
+
+.redBorder /deep/ input {
+  border-color: #f5222d;
+}
+.null {
+  transition: 2s;
 }
 </style>

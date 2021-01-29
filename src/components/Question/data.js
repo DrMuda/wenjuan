@@ -400,7 +400,7 @@ const questionList = [
                 score: 85
             },
             {
-                label: "D",
+                label: "E",
                 text: "反正也不涉及原则问题，那就买吧",
                 score: 65
             },
