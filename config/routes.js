@@ -27,6 +27,11 @@ const routes = [
     name:"SuccessTip",
     path:"/SuccessTip",
     component:"/Tips/SuccessTip.vue"
+  },
+  {
+    name:"Report",
+    path:"/Report",
+    component:"/Report/Report.vue"
   }
 ];
 
