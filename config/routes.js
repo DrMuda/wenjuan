@@ -1,11 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Question from "../src/components/Question/Question.vue";
-// import BackgroundInfo from "../src/components/BackgroundInfo/BackgroundInfo.vue";
-import RepeatTip from '../src/components/Tips/RepeatTip.vue';
-import SuccessTip from '../src/components/Tips/SuccessTip.vue';
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -16,27 +11,43 @@ const routes = [
   {
     name: "BackgroundInfo",
     path: "/BackgroundInfo",
-    component: () => import("../src/components/BackgroundInfo/BackgroundInfo.vue"),
+    component:"/BackgroundInfo/BackgroundInfo.vue",
   },
   {
     name: "Question",
     path: "/Question",
-    component: Question,
+    component: "/Question/Question.vue",
   },
   {
     name: "RepeatTip",
     path: "/RepeatTip",
-    component: RepeatTip
+    component: "/Tips/RepeatTip.vue"
   },
   {
     name:"SuccessTip",
     path:"/SuccessTip",
-    component:SuccessTip
+    component:"/Tips/SuccessTip.vue"
   }
 ];
 
 
 const router = new VueRouter({
-  routes,
+  routes:routes.map((route)=>{
+    return {
+      ...route,
+      component:()=>{
+        try{
+          const component = import(`../src/components${route.component}`)
+          if(component){
+            return component
+          }
+          return undefined
+        }catch(e){
+          console.error(e)
+          return undefined
+        }
+      }
+    }
+  })
 });
 export default router

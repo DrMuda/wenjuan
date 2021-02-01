@@ -93,18 +93,18 @@ export default {
         const readingEnvironmentIndex =
           s[7] * 0.2 + s[8] * 0.1 + s[9] * 0.4 + s[10] * 0.3;
 
-        // 阅读主动性
-        const readingInitiative = s[13];
-        // 独立性
-        const independence = s[14] * 0.6 + s[15] * 0.4;
-        // 专注度
+        // 好奇心
+        const curiosity = s[13];
+        // 创造力
+        const creativeAbility = s[14] * 0.6 + s[15] * 0.4;
+        // 专注力
         const focus = s[16];
-        // 专注时长
-        const focusTime = s[17];
+        // 社交沟通能力
+        const socialCommunicationSkills = s[17];
         // 自信度
-        const confidence = s[18] * 0.6 + s[19] * 0.6;
-        // 理解能力
-        const understandingAbility = s[20];
+        const confidence = s[18] * 0.6 + s[19] * 0.4;
+        // 逻辑分析能力
+        const logicalAnalysisAbility = s[20];
 
         // 阅读素养指数
         const readingLiteracyIndex =
@@ -146,12 +146,12 @@ export default {
           statistics: {
             knowledgeSystemIndex,
             readingEnvironmentIndex,
-            readingInitiative,
-            independence,
+            curiosity,
+            creativeAbility,
             focus,
-            focusTime,
+            socialCommunicationSkills,
             confidence,
-            understandingAbility,
+            logicalAnalysisAbility,
             readingLiteracyIndex,
             readingInterestIndex,
             readingHabitsIndex,
@@ -182,22 +182,26 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+@fontSize1: 6vw;
+@fontSize2: 5vw;
+@fontSize3: 4vw;
+
 .title {
-  font-size: 5vw;
+  font-size: @fontSize1;
   text-align: center;
   border-bottom: 1px #ccc solid;
   padding: 16px;
 }
 .tips {
-  font-size: 3vw;
+  font-size: @fontSize3;
   text-align: center;
   border-bottom: 1px #ccc solid;
   padding: 8px;
 }
 .submit {
   display: block;
-  font-size: 3vw;
+  font-size: @fontSize3;
   margin: 0 auto;
   margin-top: 36px;
   margin-bottom: 36px;

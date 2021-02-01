@@ -12,7 +12,6 @@ let defaultResult = [
 export default [
     Mock.mock('/api/isExits', req => {
         const info = JSON.parse(req.body)
-        console.log(info)
         const index1 = defaultResult.findIndex((result) => {
             return result.studentName === info.studentName
         })
@@ -25,7 +24,6 @@ export default [
         const index4 = defaultResult.findIndex((result) => {
             return result.grade === info.grade
         })
-        console.log(index1,index2,index3,index4)
         if (index1 === -1 || index2 === -1 || index3 === -1 || index4 === -1) {
             return {
                 status: true,

@@ -30,12 +30,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@fontSize1: 6vw;
+@fontSize2: 5vw;
+@fontSize3: 4vw;
+
 .content {
   text-align: center;
 }
 .title {
   display: block;
-  font-size: 5vw;
+  font-size: @fontSize1;
   margin: 10vw auto;
 }
 .el-icon-circle-check {
@@ -47,11 +51,11 @@ export default {
 }
 .tips {
   display: block;
-  font-size: 3vw;
+  font-size: @fontSize3;
 }
 .button {
   width: 30vw;
-  font-size: 3vw;
+  font-size: @fontSize3;
   margin: 24px;
 }
 </style>

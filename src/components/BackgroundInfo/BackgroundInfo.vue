@@ -110,14 +110,14 @@ export default {
       if (complete) {
         // 验证是否重复填写问卷
         let result = await isExits(query);
-        result=result.data
-        console.log(result)
+        result = result.data;
+        console.log(result);
         if (!result.data) {
           this.$router.push({
             path: "/Question",
             query,
           });
-        }else{
+        } else {
           this.$router.push({
             path: "/RepeatTip",
             query,
@@ -130,30 +130,34 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@fontSize1: 6vw;
+@fontSize2: 5vw;
+@fontSize3: 4vw;
+
 .info {
   width: 100vw;
   text-align: center;
   overflow-y: scroll;
   /deep/ .title {
     display: block;
-    font-size: 5vw;
+    font-size: @fontSize1;
     margin: 10vw auto;
   }
   /deep/ .tips {
     display: block;
-    font-size: 4vw;
+    font-size: @fontSize2;
   }
   /deep/ .form {
-    margin-top: 5vw;
+    margin-top: @fontSize1;
     * {
-      font-size: 3vw !important;
+      font-size: @fontSize3 !important;
     }
     /deep/ .item {
       margin-bottom: 8px;
     }
     /deep/ .label {
       display: inline-block;
-      width: 21vw;
+      width: @fontSize3 * 6;
       text-align: right;
       /deep/ .required {
         color: red;
@@ -161,8 +165,8 @@ export default {
     }
     /deep/ .inputInfo {
       display: inline-block;
-      width: 39vw;
-      height: 5vw !important;
+      width: 50vw;
+      height: @fontSize1 !important;
       min-height: 30px;
       /deep/ .el-input {
         width: 100% !important;
@@ -170,6 +174,23 @@ export default {
         /deep/ .el-input__inner {
           width: 100% !important;
           height: 100% !important;
+          padding-left: @fontSize1 * (3 / 4);
+          padding-right: @fontSize1 * (3 / 4);
+        }
+        /deep/ .el-input__prefix {
+          height: @fontSize1;
+          width: @fontSize1 * (3 / 4);
+        }
+        /deep/ .el-input__suffix {
+          height: @fontSize1;
+          width: @fontSize1 * (3 / 4);
+        }
+        /deep/ .el-input__icon {
+          width: 100%;
+          line-height: @fontSize1;
+        }
+        /deep/ .el-input__icon::before {
+          font-size: @fontSize3;
         }
       }
     }

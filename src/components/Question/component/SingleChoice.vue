@@ -7,11 +7,17 @@
       <el-radio
         class="option"
         v-model="choice"
-        v-for="option in question.optionList"
+        v-for="(option, index) in question.optionList"
         :key="option.text"
-        :label="option.label"
-        v-on:change="onchange(question.index, option.score, option.label)"
-        >{{ option.text }}
+        :label="String.fromCharCode(65 + index)"
+        v-on:change="
+          onchange(
+            question.index,
+            option.score,
+            String.fromCharCode(65 + index)
+          )
+        "
+        >{{ String.fromCharCode(65 + index) }}.{{ option.text }}
       </el-radio>
     </div>
   </div>
@@ -29,7 +35,7 @@ export default {
   props: ["question", "onChange"],
   data() {
     return {
-      choice:'',
+      choice: "",
     };
   },
   methods: {
@@ -41,15 +47,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@fontSize: 3vw;
+@fontSize1: 6vw;
+@fontSize2: 5vw;
+@fontSize3: 4vw;
 .question {
   width: 100vw;
   box-sizing: border-box;
-  font-size: @fontSize;
+  font-size: @fontSize3;
   padding: 16px;
   border-bottom: 1px #ddd solid;
   /deep/ * {
-    font-size: @fontSize;
+    font-size: @fontSize3;
   }
   /deep/ .options {
     padding: 16px;
@@ -58,11 +66,11 @@ export default {
       margin: 8px;
     }
     /deep/ .el-radio__inner {
-      width: @fontSize;
-      height: @fontSize;
+      width: @fontSize3;
+      height: @fontSize3;
     }
     /deep/ .el-radio__inner::after {
-      @height:@fontSize * ( 4 / 14 );
+      @height:@fontSize3 * ( 4 / 14 );
       height: @height;
       width: @height;
 

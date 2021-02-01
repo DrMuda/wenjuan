@@ -12,10 +12,10 @@
         v-model="choice"
         v-for="(option, index) in question.optionList"
         :key="option.text"
-        :label="option.label"
-        v-on:change="onchange(option.label)"
+        :label="String.fromCharCode(65 + index)"
+        v-on:change="onchange(String.fromCharCode(65 + index))"
         :disabled="disabled[index]"
-        >{{ option.text }}
+        >{{ String.fromCharCode(65 + index) }}.{{ option.text }}
       </el-checkbox>
     </div>
   </div>
@@ -98,13 +98,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@fontSize: 3vw;
+@fontSize1: 6vw;
+@fontSize2: 5vw;
+@fontSize3: 4vw;
+
 .question {
-  font-size: @fontSize;
+  font-size: @fontSize3;
   padding: 24px;
   border-bottom: 1px #ddd solid;
   /deep/ * {
-    font-size: @fontSize;
+    font-size: @fontSize3;
   }
   /deep/ .options {
     padding: 16px;
@@ -115,11 +118,11 @@ export default {
     /deep/ .el-checkbox__inner {
       // width: 14px;
       // height: 14px;
-      width: @fontSize;
-      height: @fontSize;
+      width: @fontSize3;
+      height: @fontSize3;
     }
     /deep/ .el-checkbox__inner::after {
-      @height:@fontSize * ( 7 / 14 );
+      @height:@fontSize3 * ( 7 / 14 );
       height: @height;
       width: @height * (3 / 7);
       left: @height * (4 / 7);
