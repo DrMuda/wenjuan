@@ -23,7 +23,7 @@ export default {
   methods: {
     toResult: function () {
       this.$router.push({
-        path: "/Result",
+        path: "/Report",
       });
     },
   },
