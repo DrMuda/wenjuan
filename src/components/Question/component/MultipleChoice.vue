@@ -2,7 +2,7 @@
 
 <template>
   <!-- 一般的多选题 -->
-  <div class="question">
+  <el-card class="question">
     <span class="qTitle">{{
       `${question.index + 1}.\t${question.question}(多选)`
     }}</span>
@@ -17,7 +17,7 @@
         >{{ String.fromCharCode(65 + index) }}.{{ option.text }}
       </el-checkbox>
     </div>
-  </div>
+  </el-card>
 </template>
 
 <script>
@@ -64,7 +64,7 @@ export default {
       this.$props.onChange(
         this.$props.question.index,
         score,
-        this.$data.choice
+        this.$data.choice.join("")
       );
     },
   },
@@ -75,10 +75,18 @@ export default {
 @fontSize1: 6vw;
 @fontSize2: 5vw;
 @fontSize3: 4vw;
-
+/deep/ .el-checkbox__label {
+  text-overflow: ellipsis;
+  white-space: normal;
+  vertical-align: middle;
+  display: inline-block;
+}
 .question {
+  width: 100vw;
+  margin: 0px;
+  box-sizing: border-box;
   font-size: @fontSize3;
-  padding: 24px;
+  // padding: 24px;
   border-bottom: 1px #ddd solid;
   /deep/ * {
     font-size: @fontSize3;

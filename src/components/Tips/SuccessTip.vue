@@ -19,13 +19,14 @@ export default {
   name: "SuccessTip",
   methods: {
     toResult: function () {
-      const { query } = this.$route;
       this.$router.push({
         path: "/Result",
-        query,
       });
     },
   },
+  mounted(){
+    console.log(this.$store.state.result);
+  }
 };
 </script>
 

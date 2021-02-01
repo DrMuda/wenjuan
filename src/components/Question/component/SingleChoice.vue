@@ -1,5 +1,5 @@
 <template>
-  <div class="question">
+  <el-card class="question">
     <span class="qTitle">{{
       `${question.index + 1}.\t${question.question}(单选)`
     }}</span>
@@ -20,7 +20,7 @@
         >{{ String.fromCharCode(65 + index) }}.{{ option.text }}
       </el-radio>
     </div>
-  </div>
+  </el-card>
 </template>
 
 <script>
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     onchange: function (index, score) {
-      this.$props.onChange(index, score, [this.$data.choice]);
+      this.$props.onChange(index, score, this.$data.choice);
     },
   },
 };
@@ -50,11 +50,19 @@ export default {
 @fontSize1: 6vw;
 @fontSize2: 5vw;
 @fontSize3: 4vw;
+
+/deep/ .el-radio__label {
+  text-overflow: ellipsis;
+  white-space: normal;
+  vertical-align: middle;
+  display: inline-block;
+}
 .question {
   width: 100vw;
+  margin: 0px;
   box-sizing: border-box;
   font-size: @fontSize3;
-  padding: 16px;
+  // padding: 16px;
   border-bottom: 1px #ddd solid;
   /deep/ * {
     font-size: @fontSize3;

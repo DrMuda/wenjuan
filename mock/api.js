@@ -42,7 +42,6 @@ export default [
         if (newResult) {
             defaultResult.push(JSON.parse(newResult))
         }
-        console.log(defaultResult)
         return {
             status: true,
             message: "提交成功",

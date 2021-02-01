@@ -71,6 +71,7 @@ Vue.use(Row);
 Vue.use(Col);
 Vue.use(DatePicker);
 
+
 export default {
   name: "BackgroundInfo",
   data() {
@@ -111,17 +112,16 @@ export default {
         // 验证是否重复填写问卷
         let result = await isExits(query);
         result = result.data;
-        console.log(result);
         if (!result.data) {
           this.$router.push({
             path: "/Question",
-            query,
           });
+          this.$store.commit("updataResult",query)
         } else {
           this.$router.push({
             path: "/RepeatTip",
-            query,
           });
+          this.$store.commit("updataResult",result)
         }
       }
     },
@@ -135,13 +135,13 @@ export default {
 @fontSize3: 4vw;
 
 .info {
+  box-sizing: border-box;
   width: 100vw;
   text-align: center;
-  overflow-y: scroll;
   /deep/ .title {
     display: block;
     font-size: @fontSize1;
-    margin: 10vw auto;
+    padding: 10vw;
   }
   /deep/ .tips {
     display: block;
@@ -149,7 +149,7 @@ export default {
   }
   /deep/ .form {
     margin-top: @fontSize1;
-    * {
+    /deep/ * {
       font-size: @fontSize3 !important;
     }
     /deep/ .item {
@@ -188,9 +188,6 @@ export default {
         /deep/ .el-input__icon {
           width: 100%;
           line-height: @fontSize1;
-        }
-        /deep/ .el-input__icon::before {
-          font-size: @fontSize3;
         }
       }
     }

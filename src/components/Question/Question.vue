@@ -1,14 +1,18 @@
 <template>
   <div>
-    <div class="title">读书房入学测评</div>
+    <el-card class="title">读书房入学测评</el-card>
 
     <div
       :questionList="questionList"
       v-for="question in questionList"
       :key="question.index"
     >
-      <div v-if="question.index === 0" class="tips">前10道题目由学生作答</div>
-      <div v-if="question.index === 10" class="tips">后10道题目由家长作答</div>
+      <el-card v-if="question.index === 0" class="tips"
+        >前10道题目由学生作答</el-card
+      >
+      <el-card v-if="question.index === 10" class="tips"
+        >后10道题目由家长作答</el-card
+      >
 
       <div v-if="question.index === 0" :id="`Q${question.index}`">
         <MultipleChoice :question="question" :onChange="onChange" />
@@ -20,16 +24,17 @@
         <SingleChoice :question="question" :onChange="onChange" />
       </div>
     </div>
-
     <div>
-      <el-button class="submit" v-on:click="submit">提交问卷</el-button>
+      <el-button type="primary" class="submit" v-on:click="submit"
+        >提交问卷</el-button
+      >
     </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import { Radio, Button, message } from "element-ui";
+import { Radio, Button, message, Card } from "element-ui";
 import { questionList } from "./data";
 import SingleChoice from "./component/SingleChoice";
 import MultipleChoice from "./component/MultipleChoice";
@@ -38,6 +43,7 @@ import { addResult } from "../../services/config";
 
 Vue.use(Radio);
 Vue.use(Button);
+Vue.use(Card);
 
 let scoreList = {};
 let answerList = {};
@@ -60,18 +66,18 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route);
+    console.log(this.$store.state);
   },
   methods: {
     onChange: function (index, score, answer) {
       // 记录分数，以题号作为键名，方便后续使用题号进行计算
-      scoreList[index + 1] = score;
-      answerList[index + 1] = answer;
+      scoreList[`score_${index + 1}`] = score;
+      answerList[`answer_${index + 1}`] = answer;
     },
     submit: async function () {
       let complete = true; // 验证是否作答完整
       for (let i = 1; i <= 20; i += 1) {
-        if (!scoreList[i]) {
+        if (!scoreList[`score_${i}`]) {
           const el = document.getElementById(`Q${i - 1}`);
           const { offsetLeft, offsetTop } = el;
           window.scrollTo(offsetLeft, offsetTop);
@@ -82,44 +88,46 @@ export default {
           }, 500);
 
           complete = false;
+          console.log(i)
           break;
         }
       }
+      console.log(complete)
       if (complete) {
         const s = scoreList;
         // 知识体系指数
-        const knowledgeSystemIndex = s[1] * 0.35 + s[2] * 0.65;
+        const knowledgeSystemIndex = s["score_1"] * 0.35 + s["score_2"] * 0.65;
         // 阅读环境指数
         const readingEnvironmentIndex =
-          s[7] * 0.2 + s[8] * 0.1 + s[9] * 0.4 + s[10] * 0.3;
+          s["score_7"] * 0.2 + s["score_8"] * 0.1 + s["score_9"] * 0.4 + s["score_10"] * 0.3;
 
         // 好奇心
-        const curiosity = s[13];
+        const curiosity = s["score_13"];
         // 创造力
-        const creativeAbility = s[14] * 0.6 + s[15] * 0.4;
+        const creativeAbility = s["score_14"] * 0.6 + s["score_15"] * 0.4;
         // 专注力
-        const focus = s[16];
+        const focus = s["score_16"];
         // 社交沟通能力
-        const socialCommunicationSkills = s[17];
+        const socialCommunicationSkills = s["score_17"];
         // 自信度
-        const confidence = s[18] * 0.6 + s[19] * 0.4;
+        const confidence = s["score_18"] * 0.6 + s["score_17"] * 0.4;
         // 逻辑分析能力
-        const logicalAnalysisAbility = s[20];
+        const logicalAnalysisAbility = s["score_20"];
 
         // 阅读素养指数
         const readingLiteracyIndex =
-          s[13] * 0.25 +
-          (s[14] * 0.6 + s[15] * 0.4) * 0.1 +
-          s[16] * 0.2 +
-          s[17] * 0.1 +
-          (s[18] * 0.6 + s[19] * 0.4) * 0.15 +
-          s[20] * 0.2;
+          s["score_13"] * 0.25 +
+          (s["score_14"] * 0.6 + s["score_15"] * 0.4) * 0.1 +
+          s["score_16"] * 0.2 +
+          s["score_17"] * 0.1 +
+          (s["score_18"] * 0.6 + s["score_19"] * 0.4) * 0.15 +
+          s["score_20"] * 0.2;
 
         // 学生阅读习惯指数(不记录)
         const stuReadingHabitIndex =
-          (s[3] * 0.15 + s[4] * 0.5 + s[6] * 0.35) * s[5];
+          (s["score_3"] * 0.15 + s["score_4"] * 0.5 + s["score_6"] * 0.35) * s["score_5"];
         // 家长阅读习惯指数(不记录)
-        const parentReadingHabitIndex = s[11] * s[12];
+        const parentReadingHabitIndex = s["score_11"] * s["score_12"];
         // 阅读习惯指数
         const readingHabitsIndex = Math.min(
           stuReadingHabitIndex,
@@ -138,9 +146,9 @@ export default {
           readingLiteracyIndex * 0.3 +
           readingHabitsIndex * 0.2;
 
-        const { query } = this.$route;
+        const bgInfo = this.$store.state.result;
         const result = {
-          ...query,
+          ...bgInfo,
           answerList,
           scoreList,
           statistics: {
@@ -158,17 +166,17 @@ export default {
             readingIndex,
           },
         };
+        this.$store.commit("updataResult", result);
         message({
           message: "正在提交结果，请稍等",
           type: "info",
         });
-        document.getElementsByClassName("")
+        document.getElementsByClassName("");
         const submitResult = await addResult(result);
         message.close();
         if (submitResult.data.status) {
           this.$router.push({
             path: "/SuccessTip",
-            query,
           });
         } else {
           message({

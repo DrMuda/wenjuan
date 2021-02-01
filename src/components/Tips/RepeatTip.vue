@@ -17,12 +17,13 @@ Vue.use(Button);
 
 export default {
   name: "RepeatTip",
+  mounted(){
+    console.log(this.$store.state.result)
+  },
   methods: {
     toResult: function () {
-      const { query } = this.$route;
       this.$router.push({
         path: "/Result",
-        query,
       });
     },
   },
@@ -51,10 +52,9 @@ export default {
 }
 .tips {
   display: block;
-  font-size: 64vw;
+  font-size: @fontSize3;
 }
 .button {
-  width: 30vw;
   font-size: @fontSize3;
   margin: 24px;
 }
