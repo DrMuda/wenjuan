@@ -64,12 +64,10 @@ const questionList = [
                 score: 60
             },
             {
-                label: "D",
                 text: "坐在地板上读",
                 score: 60
             },
             {
-                label: "E",
                 text: "没时间，也不喜欢读",
                 score: 50
             }
@@ -91,7 +89,6 @@ const questionList = [
                 score: 60
             },
             {
-                label: "D",
                 text: "想起来的时候看，没固定时间",
                 score: 50
             }
@@ -106,43 +103,40 @@ const questionList = [
             },
             {
                 text: "读书、听故事",
-                score: 1.1
+                score: 1.01
             },
             {
                 text: "篮球、足球、跆拳道",
                 score: 0.88
             },
             {
-                label: "D",
                 text: "和朋友出去玩",
                 score: 0.9
             },
             {
-                label: "E",
                 text: "做手工",
                 score: 0.95
             }
         ]
     },
     {
-        question: "多长时间能看完一本书呢？",
+        question: "拿到一本书，你会……？",
         optionList: [
             {
-                text: "大概半天就可以",
-                score: 90
+                text: "看看书的封面是否好玩，里边有没有漂亮的书签",
+                score: 50
             },
             {
-                text: "大概需要3~5天",
+                text: "先看看书里的插图有多少，有没有意思",
+                score: 60
+            },
+            {
+                text: "浏览下简介，看看这个书讲了件什么事",
                 score: 75
             },
             {
-                text: "大概需要1个多月",
-                score: 65
-            },
-            {
-                label: "D",
-                text: "没有刻意统计过",
-                score: 55
+                text: "直接从第一页开始读，看故事情节",
+                score: 99
             }
         ]
     },
@@ -162,7 +156,6 @@ const questionList = [
                 score: 75
             },
             {
-                label: "D",
                 text: "都挺爱读书，数不过来",
                 score: 80
             }
@@ -184,12 +177,10 @@ const questionList = [
                 score: 65
             },
             {
-                label: "D",
                 text: "自己卧室或客厅",
                 score: 70
             },
             {
-                label: "E",
                 text: "平时不怎么读课外书",
                 score: 50
             }
@@ -211,7 +202,6 @@ const questionList = [
                 score: 60
             },
             {
-                label: "D",
                 text: "看电视、打游戏",
                 score: 50
             },
@@ -233,12 +223,13 @@ const questionList = [
                 score: 65
             },
             {
-                label: "D",
                 text: "书可以随心摆放，没有固定的位置",
                 score: 55
             },
         ]
     },
+
+
     {
         question: "孩子在家会用多长时间读书？",
         optionList: [
@@ -255,7 +246,6 @@ const questionList = [
                 score: 60
             },
             {
-                label: "D",
                 text: "想起来的时候看，没固定时间",
                 score: 50
             },
@@ -265,7 +255,7 @@ const questionList = [
         question: "孩子在班级的排名情况是？",
         optionList: [
             {
-                text: "前10名~2小时",
+                text: "前10名",
                 score: 1.05
             },
             {
@@ -277,32 +267,34 @@ const questionList = [
                 score: 0.7
             },
             {
-                label: "D",
                 text: "在30~40名左右",
                 score: 0.65
             },
         ]
     },
     {
-        question: "孩子每天写作业的时间是？",
+        question: "请选择下列符合孩子情况的选项",
         optionList: [
             {
-                text: "在学校就写完了",
-                score: 85
+                text: "喜欢拆开研究自己的玩具或者家里的东西",
+                score: 80
             },
             {
-                text: "回来会先把作业写完",
-                score: 75
-            },
-            {
-                text: "到家后先玩，再写作业",
+                text: "做事喜欢征求父母的意见和看法",
                 score: 65
             },
             {
-                label: "D",
-                text: "需要时刻督促才能写完作业",
-                score: 55
+                text: "遇到自己没见过的东西非要问个明白",
+                score: 75
             },
+            {
+                text: "能够很好地遵守父母给定下的纪律",
+                score: 60
+            },
+            {
+                text:"没有特定的爱好，对大多数事情没有兴趣",
+                score: 55
+            }
         ]
     },
     {
@@ -321,7 +313,6 @@ const questionList = [
                 score: 65
             },
             {
-                label: "D",
                 text: "想方设法先他尝一下，他可能会喜欢上",
                 score: 55
             },
@@ -343,36 +334,12 @@ const questionList = [
                 score: 60
             },
             {
-                label: "D",
                 text: "告诉他为什么不行，帮他选一个替代方案",
                 score: 85
             },
             {
-                label: "E",
                 text: "反正也不涉及原则问题，那就买吧",
                 score: 65
-            },
-        ]
-    },
-    {
-        question: "孩子上课的表现如何？",
-        optionList: [
-            {
-                text: "整节课45分钟能一直专心听课",
-                score: 80
-            },
-            {
-                text: "偶尔会走神，基本能全程跟下来",
-                score: 70
-            },
-            {
-                text: "前半段能保持注意力，后边会走神",
-                score: 65
-            },
-            {
-                label: "D",
-                text: "能保持基本的安静",
-                score: 55
             },
         ]
     },
@@ -392,13 +359,36 @@ const questionList = [
                 score: 70
             },
             {
-                label: "D",
                 text: "两个小时及以上",
-                score: 85
+                score: 80
             },
             {
-                label: "E",
                 text: "没有认真统计过",
+                score: 50
+            }
+        ]
+    },
+    {
+        question: "下列哪个选项最符合孩子和小伙伴一起玩耍的状态？",
+        optionList: [
+            {
+                text: "不属于一群孩子中比较爱表达的那一个",
+                score: 55
+            },
+            {
+                text: "是个“小话痨”，聊起天来嘴基本没停过",
+                score: 70
+            },
+            {
+                text: "跟其他小朋友的关系都不错",
+                score: 60
+            },
+            {
+                text: "会把从书中听来的故事讲给他人",
+                score: 80
+            },
+            {
+                text: "工作比较忙，没有很认真观察过",
                 score: 50
             },
         ]
@@ -419,7 +409,6 @@ const questionList = [
                 score: 65
             },
             {
-                label: "D",
                 text: "会非常腼腆、害羞，有些不适应",
                 score: 55
             },
@@ -441,7 +430,6 @@ const questionList = [
                 score: 65
             },
             {
-                label: "D",
                 text: "平时话不是很多，一般都是我主动问",
                 score: 55
             },
@@ -463,12 +451,10 @@ const questionList = [
                 score: 85
             },
             {
-                label: "D",
                 text: "没怎么问过我问题",
                 score: 65
             },
             {
-                label: "E",
                 text: "都是一些小孩子的问题，没给我留下特殊印象的问题",
                 score: 55
             },
