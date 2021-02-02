@@ -96,7 +96,10 @@ export default {
         const knowledgeSystemIndex = s["score_1"] * 0.35 + s["score_2"] * 0.65;
         // 阅读环境指数
         const readingEnvironmentIndex =
-          s["score_7"] * 0.2 + s["score_8"] * 0.1 + s["score_9"] * 0.4 + s["score_10"] * 0.3;
+          s["score_7"] * 0.2 +
+          s["score_8"] * 0.1 +
+          s["score_9"] * 0.4 +
+          s["score_10"] * 0.3;
 
         // 好奇心
         const curiosity = s["score_13"];
@@ -107,7 +110,7 @@ export default {
         // 社交沟通能力
         const socialCommunicationSkills = s["score_17"];
         // 自信度
-        const confidence = s["score_18"] * 0.6 + s["score_17"] * 0.4;
+        const confidence = s["score_18"] * 0.6 + s["score_19"] * 0.4;
         // 逻辑分析能力
         const logicalAnalysisAbility = s["score_20"];
 
@@ -122,7 +125,8 @@ export default {
 
         // 学生阅读习惯指数(不记录)
         const stuReadingHabitIndex =
-          (s["score_3"] * 0.15 + s["score_4"] * 0.5 + s["score_6"] * 0.35) * s["score_5"];
+          (s["score_3"] * 0.15 + s["score_4"] * 0.5 + s["score_6"] * 0.35) *
+          s["score_5"];
         // 家长阅读习惯指数(不记录)
         const parentReadingHabitIndex = s["score_11"] * s["score_12"];
         // 阅读习惯指数
@@ -149,20 +153,21 @@ export default {
           answerList,
           scoreList,
           statistics: {
-            knowledgeSystemIndex,
-            readingEnvironmentIndex,
-            curiosity,
-            creativeAbility,
-            focus,
-            socialCommunicationSkills,
-            confidence,
-            logicalAnalysisAbility,
-            readingLiteracyIndex,
-            readingInterestIndex,
-            readingHabitsIndex,
-            readingIndex,
+            knowledgeSystemIndex: knowledgeSystemIndex.toFixed(2),
+            readingEnvironmentIndex: readingEnvironmentIndex.toFixed(2),
+            curiosity: curiosity.toFixed(2),
+            creativeAbility: creativeAbility.toFixed(2),
+            focus: focus.toFixed(2),
+            socialCommunicationSkills: socialCommunicationSkills.toFixed(2),
+            confidence: confidence.toFixed(2),
+            logicalAnalysisAbility: logicalAnalysisAbility.toFixed(2),
+            readingLiteracyIndex: readingLiteracyIndex.toFixed(2),
+            readingInterestIndex: readingInterestIndex.toFixed(2),
+            readingHabitsIndex: readingHabitsIndex.toFixed(2),
+            readingIndex: readingIndex.toFixed(2),
           },
         };
+        console.log(result);
         this.$store.commit("updataResult", result);
         message({
           message: "正在提交结果，请稍等",

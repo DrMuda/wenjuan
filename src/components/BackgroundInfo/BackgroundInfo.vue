@@ -4,46 +4,38 @@
     <span class="tips">前10道题由学生作答，</span>
     <span class="tips">后10道题由家长作答。</span>
     <div class="form">
-      <el-row type="flex" justify="center" class="item">
-        <el-col class="label">
-          <span class="required">*</span>学生姓名：</el-col
-        >
-        <el-col class="inputInfo" id="studentName">
+      <div class="item">
+        <div class="label"><span class="required">*</span>学生姓名：</div>
+        <div class="inputInfo" id="studentName">
           <el-input placeholder="请输入" v-model="studentName" />
-        </el-col>
-      </el-row>
+        </div>
+      </div>
 
-      <el-row type="flex" justify="center" class="item">
-        <el-col class="label">
-          <span class="required">*</span>就读学校：</el-col
-        >
-        <el-col class="inputInfo" id="school">
+      <div class="item">
+        <div class="label"><span class="required">*</span>就读学校：</div>
+        <div class="inputInfo" id="school">
           <el-input placeholder="请输入" v-model="school" />
-        </el-col>
-      </el-row>
+        </div>
+      </div>
 
-      <el-row type="flex" justify="center" class="item">
-        <el-col class="label">
-          <span class="required">*</span>出生日期：</el-col
-        >
-        <el-col class="inputInfo" id="birthday">
+      <div class="item">
+        <div class="label"><span class="required">*</span>出生日期：</div>
+        <div class="inputInfo" id="birthday">
           <el-date-picker
             placeholder="请输入"
             v-model="birthday"
             type="date"
             :picker-options="pickerOptions"
           />
-        </el-col>
-      </el-row>
+        </div>
+      </div>
 
-      <el-row type="flex" justify="center" class="item">
-        <el-col class="label">
-          <span class="required">*</span>就读班级：</el-col
-        >
-        <el-col class="inputInfo" id="grade">
+      <div class="item">
+        <div class="label"><span class="required">*</span>就读班级：</div>
+        <div class="inputInfo" id="grade">
           <el-input placeholder="请输入" v-model="grade" />
-        </el-col>
-      </el-row>
+        </div>
+      </div>
 
       <el-button
         class="submit"
@@ -58,13 +50,11 @@
 
 <script>
 import Vue from "vue";
-import { Input, Button, Row, Col, DatePicker, message } from "element-ui";
+import { Input, Button, DatePicker, message } from "element-ui";
 import { isExits, checkLinedIsInvalid } from "../../services/config";
 
 Vue.use(Input);
 Vue.use(Button);
-Vue.use(Row);
-Vue.use(Col);
 Vue.use(DatePicker);
 
 export default {
@@ -85,12 +75,12 @@ export default {
   },
   async mounted() {
     const result = await checkLinedIsInvalid();
-    console.log(result)
+    console.log(result);
     if (!result.data.status) {
       this.$router.push({
         path: "/Error",
       });
-    } else if (result.data.code!==200) {
+    } else if (result.data.code !== 200) {
       this.$router.push({
         path: "/Error",
       });
@@ -101,7 +91,7 @@ export default {
       const query = {
         studentName: this.$data.studentName,
         school: this.$data.school,
-        birthday: this.$data.birthday.toLocaleString().split(" ")[0],
+        birthday: this.$data.birthday.toLocaleString().split(" ")[0].replace(/\//g,"-"),
         grade: this.$data.grade,
       };
       let complete = true; // 验证是否填写完整
@@ -176,10 +166,8 @@ export default {
 @fontSize1: 6vw;
 @fontSize2: 5vw;
 @fontSize3: 4vw;
-@test: 100vh;
-@test2: 100vw;
+
 .info {
-  height: if((@test> @test2), 100vh, 90vh);
   box-sizing: border-box;
   width: 100vw;
   text-align: center;
@@ -192,25 +180,32 @@ export default {
     display: block;
     font-size: @fontSize2;
   }
-  /deep/ .form {
-    margin-top: @fontSize1;
-    /deep/ * {
+   .form {
+    margin: @fontSize1 auto 0;
+    width: 80vw;
+    min-width: 320px;
+     * {
       font-size: @fontSize3 !important;
     }
-    /deep/ .item {
+     .item {
+      display: -webkit-box;
+      display: -webkit-box;
+      display: flex;
+      margin: 0 auto;
+      justify-content: space-between;
+      -webkit-justify-content: space-between;
+      -webkit-align-items: center;
       margin-bottom: 8px;
     }
-    /deep/ .label {
-      display: inline-block;
-      width: @fontSize3 * 6;
+     .label {
+      width: 6em;
       text-align: right;
-      /deep/ .required {
+       .required {
         color: red;
       }
     }
-    /deep/ .inputInfo {
-      display: inline-block;
-      width: 50vw;
+     .inputInfo {
+      flex: auto;
       height: @fontSize1 !important;
       min-height: 30px;
       /deep/ .el-input {
@@ -219,7 +214,7 @@ export default {
         /deep/ .el-input__inner {
           width: 100% !important;
           height: 100% !important;
-          padding-left: @fontSize1 * (3 / 4);
+          padding-left: @fontSize1 * (3.5 / 4);
           padding-right: @fontSize1 * (3 / 4);
         }
         /deep/ .el-input__prefix {
