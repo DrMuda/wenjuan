@@ -219,7 +219,9 @@ export default {
   },
   methods: {
     show_echart1() {
-      let myChart = echarts.getInstanceByDom(document.getElementById("chart_one")); //有的话就获取已有echarts实例的DOM节点。
+      let myChart = echarts.getInstanceByDom(
+        document.getElementById("chart_one")
+      ); //有的话就获取已有echarts实例的DOM节点。
       if (myChart == null) {
         // 如果不存在，就进行初始化。
         myChart = echarts.init(document.getElementById("chart_one"));
@@ -339,7 +341,9 @@ export default {
       myChart.setOption(option);
     },
     show_echart2() {
-      let myChart = echarts.getInstanceByDom(document.getElementById("chart_two")); //有的话就获取已有echarts实例的DOM节点。
+      let myChart = echarts.getInstanceByDom(
+        document.getElementById("chart_two")
+      ); //有的话就获取已有echarts实例的DOM节点。
       if (myChart == null) {
         // 如果不存在，就进行初始化。
         myChart = echarts.init(document.getElementById("chart_two"));
@@ -456,7 +460,9 @@ export default {
       myChart.setOption(option);
     },
     show_echart3() {
-      let myChart = echarts.getInstanceByDom(document.getElementById("chart_three")); //有的话就获取已有echarts实例的DOM节点。
+      let myChart = echarts.getInstanceByDom(
+        document.getElementById("chart_three")
+      ); //有的话就获取已有echarts实例的DOM节点。
       if (myChart == null) {
         // 如果不存在，就进行初始化。
         myChart = echarts.init(document.getElementById("chart_three"));
@@ -495,12 +501,13 @@ export default {
             {
               name: "好奇心",
               max: 100,
+              color: "black",
             },
-            { name: "逻辑分析能力", max: 100 },
-            { name: "社交沟通能力", max: 100 },
-            { name: "自信度", max: 100 },
-            { name: "专注力", max: 100 },
-            { name: "创造力", max: 100 },
+            { name: "逻辑分析能力", max: 100,color: "black"},
+            { name: "社交沟通能力", max: 100,color: "black"},
+            { name: "自信度", max: 100,color: "black" },
+            { name: "专注力", max: 100,color: "black" },
+            { name: "创造力", max: 100,color: "black" },
           ],
         },
         series: [
@@ -536,7 +543,9 @@ export default {
       option && myChart.setOption(option);
     },
     show_echart4() {
-      let myChart = echarts.getInstanceByDom(document.getElementById("chart_four")); //有的话就获取已有echarts实例的DOM节点。
+      let myChart = echarts.getInstanceByDom(
+        document.getElementById("chart_four")
+      ); //有的话就获取已有echarts实例的DOM节点。
       if (myChart == null) {
         // 如果不存在，就进行初始化。
         myChart = echarts.init(document.getElementById("chart_four"));
