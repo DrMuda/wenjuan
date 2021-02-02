@@ -71,7 +71,6 @@ Vue.use(Row);
 Vue.use(Col);
 Vue.use(DatePicker);
 
-
 export default {
   name: "BackgroundInfo",
   data() {
@@ -111,17 +110,38 @@ export default {
       if (complete) {
         // 验证是否重复填写问卷
         let result = await isExits(query);
+        console.log(result);
         result = result.data;
+
         if (!result.data) {
           this.$router.push({
             path: "/Question",
           });
-          this.$store.commit("updataResult",query)
+          this.$store.commit("updataResult", query);
         } else {
+          result = {
+            ...query,
+            scoreList: result?.data?.[0],
+            answerList: result?.data?.[1],
+            statistics: {
+              knowledgeSystemIndex: result?.data?.[2]?.knowledge,
+              readingEnvironmentIndex: result?.data?.[2]?.readEnvironment,
+              curiosity: result?.data?.[2]?.inquisitive,
+              creativeAbility: result?.data?.[2]?.creativity,
+              focus: result?.data?.[2]?.concentrate,
+              socialCommunicationSkills: result?.data?.[2]?.expression,
+              confidence: result?.data?.[2]?.confidence,
+              logicalAnalysisAbility: result?.data?.[2]?.analyse,
+              readingLiteracyIndex: result?.data?.[2]?.readMoral,
+              readingInterestIndex: result?.data?.[2]?.readInterest,
+              readingHabitsIndex: result?.data?.[2]?.readHabit,
+              readingIndex: result?.data?.[2]?.readIndex,
+            },
+          };
           this.$router.push({
             path: "/RepeatTip",
           });
-          this.$store.commit("updataResult",result)
+          this.$store.commit("updataResult", result);
         }
       }
     },
