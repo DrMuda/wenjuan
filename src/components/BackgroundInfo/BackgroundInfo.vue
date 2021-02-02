@@ -51,6 +51,7 @@
 <script>
 import Vue from "vue";
 import { Input, Button, DatePicker, message } from "element-ui";
+import { mapActions } from "vuex";
 import { isExits, checkLinedIsInvalid } from "../../services/config";
 
 Vue.use(Input);
@@ -75,7 +76,6 @@ export default {
   },
   async mounted() {
     const result = await checkLinedIsInvalid();
-    console.log(result);
     if (!result.data.status) {
       this.$router.push({
         path: "/Error",
@@ -87,6 +87,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['updateResult']),
     submit: async function () {
       const query = {
         studentName: this.$data.studentName,
@@ -124,7 +125,7 @@ export default {
             this.$router.push({
               path: "/Question",
             });
-            this.$store.commit("updataResult", query);
+           this.updateResult(query)
           } else {
             result = {
               ...query,
@@ -148,13 +149,14 @@ export default {
             this.$router.push({
               path: "/RepeatTip",
             });
-            this.$store.commit("updataResult", result);
+            this.updateResult(result)
           }
         } else {
           message({
             message: "网络出错，请稍候再次尝试",
             type: "error",
           });
+          this.updateResult(result)
         }
       }
     },

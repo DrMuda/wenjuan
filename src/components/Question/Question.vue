@@ -34,6 +34,7 @@
 
 <script>
 import Vue from "vue";
+import { mapActions } from "vuex";
 import { Radio, Button, message, Card } from "element-ui";
 import { questionList } from "./data";
 import SingleChoice from "./component/SingleChoice";
@@ -65,10 +66,8 @@ export default {
       }),
     };
   },
-  mounted() {
-    console.log(this.$store.state);
-  },
   methods: {
+    ...mapActions(["updateResult"]),
     onChange: function (index, score, answer) {
       // 记录分数，以题号作为键名，方便后续使用题号进行计算
       scoreList[`score_${index + 1}`] = score;
@@ -153,22 +152,32 @@ export default {
           answerList,
           scoreList,
           statistics: {
-            knowledgeSystemIndex: knowledgeSystemIndex.toFixed(2),
-            readingEnvironmentIndex: readingEnvironmentIndex.toFixed(2),
-            curiosity: curiosity.toFixed(2),
-            creativeAbility: creativeAbility.toFixed(2),
-            focus: focus.toFixed(2),
-            socialCommunicationSkills: socialCommunicationSkills.toFixed(2),
-            confidence: confidence.toFixed(2),
-            logicalAnalysisAbility: logicalAnalysisAbility.toFixed(2),
-            readingLiteracyIndex: readingLiteracyIndex.toFixed(2),
-            readingInterestIndex: readingInterestIndex.toFixed(2),
-            readingHabitsIndex: readingHabitsIndex.toFixed(2),
-            readingIndex: readingIndex.toFixed(2),
+            knowledgeSystemIndex: parseFloat(knowledgeSystemIndex.toFixed(2)),
+            readingEnvironmentIndex: parseFloat(
+              readingEnvironmentIndex.toFixed(2)
+            ),
+            curiosity: parseFloat(curiosity.toFixed(2)),
+            creativeAbility: parseFloat(creativeAbility.toFixed(2)),
+            focus: parseFloat(focus.toFixed(2)),
+            socialCommunicationSkills: parseFloat(
+              socialCommunicationSkills.toFixed(2)
+            ),
+            confidence: parseFloat(confidence.toFixed(2)),
+            logicalAnalysisAbility: parseFloat(
+              logicalAnalysisAbility.toFixed(2)
+            ),
+            readingLiteracyIndex: parseFloat(readingLiteracyIndex.toFixed(2)),
+            readingInterestIndex: parseFloat(readingInterestIndex.toFixed(2)),
+            readingHabitsIndex: parseFloat(readingHabitsIndex.toFixed(2)),
+            readingIndex: parseFloat(readingIndex.toFixed(2)),
           },
         };
-        console.log(result);
-        this.$store.commit("updataResult", result);
+
+        //Vuex修改提交这里！！！！！！
+        // this.$store.commit("updataResult", result);
+        // this.$store.dispatch('updateResult',result)
+        await this.updateResult(result);
+
         message({
           message: "正在提交结果，请稍等",
           type: "info",
