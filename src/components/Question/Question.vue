@@ -86,13 +86,10 @@ export default {
           setTimeout(() => {
             el.className = "blackFont";
           }, 500);
-
           complete = false;
-          console.log(i)
           break;
         }
       }
-      console.log(complete)
       if (complete) {
         const s = scoreList;
         // 知识体系指数

@@ -32,6 +32,11 @@ const routes = [
     name:"Report",
     path:"/Report",
     component:"/Report/Report.vue"
+  },
+  {
+    name:"Error",
+    path:"/Error",
+    component:"/Tips/Error.vue"
   }
 ];
 

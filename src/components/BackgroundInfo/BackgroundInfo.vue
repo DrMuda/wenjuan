@@ -45,26 +45,22 @@
         </el-col>
       </el-row>
 
-      <el-button class="submit" @click="submit()">进入问卷</el-button>
+      <el-button
+        class="submit"
+        @click="submit()"
+        type="primary"
+        :disabled="disabled"
+        >进入问卷</el-button
+      >
     </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import {
-  Form,
-  FormItem,
-  Input,
-  Button,
-  Row,
-  Col,
-  DatePicker,
-} from "element-ui";
-import { isExits } from "../../services/config";
+import { Input, Button, Row, Col, DatePicker, message } from "element-ui";
+import { isExits, checkLinedIsInvalid } from "../../services/config";
 
-Vue.use(Form);
-Vue.use(FormItem);
 Vue.use(Input);
 Vue.use(Button);
 Vue.use(Row);
@@ -75,6 +71,7 @@ export default {
   name: "BackgroundInfo",
   data() {
     return {
+      disabled: false,
       studentName: "",
       school: "",
       birthday: "",
@@ -85,6 +82,19 @@ export default {
         },
       },
     };
+  },
+  async mounted() {
+    const result = await checkLinedIsInvalid();
+    console.log(result)
+    if (!result.data.status) {
+      this.$router.push({
+        path: "/Error",
+      });
+    } else if (result.data.code!==200) {
+      this.$router.push({
+        path: "/Error",
+      });
+    }
   },
   methods: {
     submit: async function () {
@@ -109,39 +119,52 @@ export default {
 
       if (complete) {
         // 验证是否重复填写问卷
+        message({
+          message: "请稍等...",
+          type: "info",
+        });
+        this.$data.disabled = true;
         let result = await isExits(query);
-        console.log(result);
+        this.$data.disabled = false;
+
         result = result.data;
 
-        if (!result.data) {
-          this.$router.push({
-            path: "/Question",
-          });
-          this.$store.commit("updataResult", query);
+        if (result.status) {
+          if (!result.data) {
+            this.$router.push({
+              path: "/Question",
+            });
+            this.$store.commit("updataResult", query);
+          } else {
+            result = {
+              ...query,
+              scoreList: result?.data?.[0],
+              answerList: result?.data?.[1],
+              statistics: {
+                knowledgeSystemIndex: result?.data?.[2]?.knowledge,
+                readingEnvironmentIndex: result?.data?.[2]?.readEnvironment,
+                curiosity: result?.data?.[2]?.inquisitive,
+                creativeAbility: result?.data?.[2]?.creativity,
+                focus: result?.data?.[2]?.concentrate,
+                socialCommunicationSkills: result?.data?.[2]?.expression,
+                confidence: result?.data?.[2]?.confidence,
+                logicalAnalysisAbility: result?.data?.[2]?.analyse,
+                readingLiteracyIndex: result?.data?.[2]?.readMoral,
+                readingInterestIndex: result?.data?.[2]?.readInterest,
+                readingHabitsIndex: result?.data?.[2]?.readHabit,
+                readingIndex: result?.data?.[2]?.readIndex,
+              },
+            };
+            this.$router.push({
+              path: "/RepeatTip",
+            });
+            this.$store.commit("updataResult", result);
+          }
         } else {
-          result = {
-            ...query,
-            scoreList: result?.data?.[0],
-            answerList: result?.data?.[1],
-            statistics: {
-              knowledgeSystemIndex: result?.data?.[2]?.knowledge,
-              readingEnvironmentIndex: result?.data?.[2]?.readEnvironment,
-              curiosity: result?.data?.[2]?.inquisitive,
-              creativeAbility: result?.data?.[2]?.creativity,
-              focus: result?.data?.[2]?.concentrate,
-              socialCommunicationSkills: result?.data?.[2]?.expression,
-              confidence: result?.data?.[2]?.confidence,
-              logicalAnalysisAbility: result?.data?.[2]?.analyse,
-              readingLiteracyIndex: result?.data?.[2]?.readMoral,
-              readingInterestIndex: result?.data?.[2]?.readInterest,
-              readingHabitsIndex: result?.data?.[2]?.readHabit,
-              readingIndex: result?.data?.[2]?.readIndex,
-            },
-          };
-          this.$router.push({
-            path: "/RepeatTip",
+          message({
+            message: "网络出错，请稍候再次尝试",
+            type: "error",
           });
-          this.$store.commit("updataResult", result);
         }
       }
     },
@@ -153,8 +176,10 @@ export default {
 @fontSize1: 6vw;
 @fontSize2: 5vw;
 @fontSize3: 4vw;
-
+@test: 100vh;
+@test2: 100vw;
 .info {
+  height: if((@test> @test2), 100vh, 90vh);
   box-sizing: border-box;
   width: 100vw;
   text-align: center;
