@@ -66,12 +66,8 @@ export default {
       }),
     };
   },
-  mounted() {
-  },
-  computed:{
-    },
   methods: {
-    ...mapActions(['updateResult']),
+    ...mapActions(["updateResult"]),
     onChange: function (index, score, answer) {
       // 记录分数，以题号作为键名，方便后续使用题号进行计算
       scoreList[`score_${index + 1}`] = score;
@@ -113,7 +109,7 @@ export default {
         // 社交沟通能力
         const socialCommunicationSkills = s["score_17"];
         // 自信度
-        const confidence = s["score_18"] * 0.6 + s["score_17"] * 0.4;
+        const confidence = s["score_18"] * 0.6 + s["score_19"] * 0.4;
         // 逻辑分析能力
         const logicalAnalysisAbility = s["score_20"];
 
@@ -156,24 +152,31 @@ export default {
           answerList,
           scoreList,
           statistics: {
-            knowledgeSystemIndex,
-            readingEnvironmentIndex,
-            curiosity,
-            creativeAbility,
-            focus,
-            socialCommunicationSkills,
-            confidence,
-            logicalAnalysisAbility,
-            readingLiteracyIndex,
-            readingInterestIndex,
-            readingHabitsIndex,
-            readingIndex,
+            knowledgeSystemIndex: parseFloat(knowledgeSystemIndex.toFixed(2)),
+            readingEnvironmentIndex: parseFloat(
+              readingEnvironmentIndex.toFixed(2)
+            ),
+            curiosity: parseFloat(curiosity.toFixed(2)),
+            creativeAbility: parseFloat(creativeAbility.toFixed(2)),
+            focus: parseFloat(focus.toFixed(2)),
+            socialCommunicationSkills: parseFloat(
+              socialCommunicationSkills.toFixed(2)
+            ),
+            confidence: parseFloat(confidence.toFixed(2)),
+            logicalAnalysisAbility: parseFloat(
+              logicalAnalysisAbility.toFixed(2)
+            ),
+            readingLiteracyIndex: parseFloat(readingLiteracyIndex.toFixed(2)),
+            readingInterestIndex: parseFloat(readingInterestIndex.toFixed(2)),
+            readingHabitsIndex: parseFloat(readingHabitsIndex.toFixed(2)),
+            readingIndex: parseFloat(readingIndex.toFixed(2)),
           },
         };
+
         //Vuex修改提交这里！！！！！！
         // this.$store.commit("updataResult", result);
         // this.$store.dispatch('updateResult',result)
-        await this.updateResult(result)
+        await this.updateResult(result);
 
         message({
           message: "正在提交结果，请稍等",

@@ -67,9 +67,9 @@ export default {
   /deep/ * {
     font-size: @fontSize3;
   }
-  /deep/ .options {
+   .options {
     padding: 16px;
-    /deep/ .option {
+     .option {
       display: block !important;
       margin: 8px;
     }

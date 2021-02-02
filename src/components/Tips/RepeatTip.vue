@@ -17,9 +17,6 @@ Vue.use(Button);
 
 export default {
   name: "RepeatTip",
-  mounted(){
-    console.log(this.$store.state.result)
-  },
   methods: {
     toResult: function () {
       this.$router.push({
