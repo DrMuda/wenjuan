@@ -1,16 +1,18 @@
 import axios from 'axios'
 import '../../mock/api'
 
-export async function isExits(params = {}) {
+axios.defaults.baseURL = '/';
+
+export function isExits(params = {}) {
     return axios.post(
-        '/api/isExits',
+        '/api/studentDatum/verifyStudentDatum',
         params
     );
 }
 
-export async function addResult(params = {}) {
+export function addResult(params = {}) {
     return axios.post(
-        '/api/addResult',
+        '/api/studentDatum/submitQuestionnaire',
         params
     )
 }
