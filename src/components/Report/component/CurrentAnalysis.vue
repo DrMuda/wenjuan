@@ -82,10 +82,10 @@
 <script>
 import * as echarts from "echarts";
 import Vue from "vue";
-import { Divider ,Table,TableColumn} from "element-ui";
-Vue.use(Divider)
-Vue.use(Table)
-Vue.use(TableColumn)
+import { Divider, Table, TableColumn } from "element-ui";
+Vue.use(Divider);
+Vue.use(Table);
+Vue.use(TableColumn);
 export default {
   data() {
     return {
@@ -146,49 +146,63 @@ export default {
       testData1: [
         {
           timu: "阅读习惯",
-          grade: "62",
+          grade: this.$store.state.result.statistics.readingInterestIndex.toFixed(
+            0
+          ),
         },
         {
           timu: "阅读环境",
-          grade: "73",
+          grade: this.$store.state.result.statistics.readingEnvironmentIndex.toFixed(
+            0
+          ),
         },
         {
           timu: "阅读兴趣",
-          grade: "52",
+          grade: this.$store.state.result.statistics.readingHabitsIndex.toFixed(
+            0
+          ),
         },
         {
           timu: "阅读素养",
-          grade: "79",
+          grade: this.$store.state.result.statistics.readingLiteracyIndex.toFixed(
+            0
+          ),
         },
         {
           timu: "知识体系",
-          grade: "66",
+          grade: this.$store.state.result.statistics.knowledgeSystemIndex.toFixed(
+            0
+          ),
         },
       ],
       testData2: [
         {
-          timu: "自我驱动",
-          grade: "75",
+          timu: "好奇心",
+          grade: this.$store.state.result.statistics.curiosity.toFixed(0),
         },
         {
-          timu: "独立性指数",
-          grade: "76",
+          timu: "创造力",
+          grade: this.$store.state.result.statistics.creativeAbility.toFixed(0),
         },
         {
-          timu: "专注度",
-          grade: "80",
+          timu: "专注力",
+          grade: this.$store.state.result.statistics.focus.toFixed(0),
         },
         {
-          timu: "自我信任度",
-          grade: "75",
+          timu: "自信度",
+          grade: this.$store.state.result.statistics.confidence.toFixed(0),
         },
         {
-          timu: "专注时长",
-          grade: "85",
+          timu: "社交沟通能力",
+          grade: this.$store.state.result.statistics.socialCommunicationSkills.toFixed(
+            0
+          ),
         },
         {
-          timu: "思维深度",
-          grade: "85",
+          timu: "逻辑分析能力",
+          grade: this.$store.state.result.statistics.logicalAnalysisAbility.toFixed(
+            0
+          ),
         },
       ],
       dataset_label: {
@@ -200,12 +214,24 @@ export default {
         (13 * document.documentElement.clientWidth) /
         450
       ).toString(),
+      timer: null,
     };
   },
   methods: {
     show_echart1() {
-      var myChart = echarts.init(document.getElementById("chart_one"));
-      let tester_grade = [56, 62, 57, 36, 44];
+      let myChart = echarts.getInstanceByDom(document.getElementById("chart_one")); //有的话就获取已有echarts实例的DOM节点。
+      if (myChart == null) {
+        // 如果不存在，就进行初始化。
+        myChart = echarts.init(document.getElementById("chart_one"));
+      }
+      let test_result = this.$store.state.result.statistics;
+      let tester_grade = [
+        test_result.readingInterestIndex.toFixed(0),
+        test_result.readingEnvironmentIndex.toFixed(0),
+        test_result.readingHabitsIndex.toFixed(0),
+        test_result.readingLiteracyIndex.toFixed(0),
+        test_result.knowledgeSystemIndex.toFixed(0),
+      ];
       let three_grade = [96, 90, 95, 93, 97];
       var option = {
         legend: {
@@ -313,8 +339,19 @@ export default {
       myChart.setOption(option);
     },
     show_echart2() {
-      var myChart = echarts.init(document.getElementById("chart_two"));
-      let tester_grade = [56, 62, 57, 36, 44];
+      let myChart = echarts.getInstanceByDom(document.getElementById("chart_two")); //有的话就获取已有echarts实例的DOM节点。
+      if (myChart == null) {
+        // 如果不存在，就进行初始化。
+        myChart = echarts.init(document.getElementById("chart_two"));
+      }
+      let test_result = this.$store.state.result.statistics;
+      let tester_grade = [
+        test_result.readingInterestIndex.toFixed(0),
+        test_result.readingEnvironmentIndex.toFixed(0),
+        test_result.readingHabitsIndex.toFixed(0),
+        test_result.readingLiteracyIndex.toFixed(0),
+        test_result.knowledgeSystemIndex.toFixed(0),
+      ];
       let one_grade = [76, 78, 65, 75, 78];
       var option = {
         legend: {
@@ -419,8 +456,13 @@ export default {
       myChart.setOption(option);
     },
     show_echart3() {
-      var myChart = echarts.init(document.getElementById("chart_three"));
+      let myChart = echarts.getInstanceByDom(document.getElementById("chart_three")); //有的话就获取已有echarts实例的DOM节点。
+      if (myChart == null) {
+        // 如果不存在，就进行初始化。
+        myChart = echarts.init(document.getElementById("chart_three"));
+      }
       var option;
+      let test_result = this.$store.state.result.statistics;
       option = {
         tooltip: {
           textStyle: {
@@ -451,23 +493,29 @@ export default {
           },
           indicator: [
             {
-              name: "阅读主动性",
+              name: "好奇心",
               max: 100,
             },
-            { name: "理解能力", max: 100 },
-            { name: "专注时长", max: 100 },
+            { name: "逻辑分析能力", max: 100 },
+            { name: "社交沟通能力", max: 100 },
             { name: "自信度", max: 100 },
-            { name: "专注度", max: 100 },
-            { name: "独立性指数", max: 100 },
+            { name: "专注力", max: 100 },
+            { name: "创造力", max: 100 },
           ],
         },
         series: [
           {
             type: "radar",
-            // areaStyle: {normal: {}},
             data: [
               {
-                value: [56, 43, 61, 52, 45, 33],
+                value: [
+                  test_result.curiosity.toFixed(0),
+                  test_result.logicalAnalysisAbility.toFixed(0),
+                  test_result.socialCommunicationSkills.toFixed(0),
+                  test_result.confidence.toFixed(0),
+                  test_result.focus.toFixed(0),
+                  test_result.creativeAbility.toFixed(0),
+                ],
                 name: "测试者得分",
                 label: {
                   show: true,
@@ -488,8 +536,20 @@ export default {
       option && myChart.setOption(option);
     },
     show_echart4() {
-      var myChart = echarts.init(document.getElementById("chart_four"));
-      let tester_grade = [56, 33, 45, 52, 61, 43];
+      let myChart = echarts.getInstanceByDom(document.getElementById("chart_four")); //有的话就获取已有echarts实例的DOM节点。
+      if (myChart == null) {
+        // 如果不存在，就进行初始化。
+        myChart = echarts.init(document.getElementById("chart_four"));
+      }
+      let test_result = this.$store.state.result.statistics;
+      let tester_grade = [
+        test_result.curiosity.toFixed(0),
+        test_result.logicalAnalysisAbility.toFixed(0),
+        test_result.socialCommunicationSkills.toFixed(0),
+        test_result.confidence.toFixed(0),
+        test_result.focus.toFixed(0),
+        test_result.creativeAbility.toFixed(0),
+      ];
       let one_grade = [72, 68, 75, 73, 68, 64];
       var option = {
         legend: {
@@ -507,19 +567,19 @@ export default {
           dimensions: ["product", "测试者得分", "进入书房1年学员平均分"],
           source: [
             {
-              product: "阅读主动性",
+              product: "好奇心",
               测试者得分: tester_grade[0],
               进入书房1年学员平均分: one_grade[0],
               label: this.dataset_label,
             },
             {
-              product: "独立性指数",
+              product: "逻辑分析能力",
               测试者得分: tester_grade[1],
               进入书房1年学员平均分: one_grade[1],
               label: this.dataset_label,
             },
             {
-              product: "专注度",
+              product: "社交沟通能力",
               测试者得分: tester_grade[2],
               进入书房1年学员平均分: one_grade[2],
               label: this.dataset_label,
@@ -531,13 +591,13 @@ export default {
               label: this.dataset_label,
             },
             {
-              product: "专注时长",
+              product: "专注力",
               测试者得分: tester_grade[4],
               进入书房1年学员平均分: one_grade[4],
               label: this.dataset_label,
             },
             {
-              product: "理解能力",
+              product: "创造力",
               测试者得分: tester_grade[5],
               进入书房1年学员平均分: one_grade[5],
               label: this.dataset_label,
@@ -600,12 +660,42 @@ export default {
       };
       myChart.setOption(option);
     },
+
+    initEcharts() {
+      this.show_echart1();
+      this.show_echart2();
+      this.show_echart3();
+      this.show_echart4();
+    },
+
+    resetEcharts() {
+      let myChart1 = echarts.getInstanceByDom(
+        document.getElementById("chart_one")
+      );
+      let myChart2 = echarts.getInstanceByDom(
+        document.getElementById("chart_two")
+      );
+      let myChart3 = echarts.getInstanceByDom(
+        document.getElementById("chart_three")
+      );
+      let myChart4 = echarts.getInstanceByDom(
+        document.getElementById("chart_four")
+      );
+      myChart1.resize();
+      myChart2.resize();
+      myChart3.resize();
+      myChart4.resize();
+    },
   },
   mounted() {
-    this.show_echart1();
-    this.show_echart2();
-    this.show_echart3();
-    this.show_echart4();
+    this.initEcharts();
+    window.onresize = () => {
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.resetEcharts();
+        this.initEcharts();
+      }, 250);
+    };
   },
 };
 </script>

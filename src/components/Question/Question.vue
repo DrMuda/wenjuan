@@ -34,6 +34,7 @@
 
 <script>
 import Vue from "vue";
+import { mapActions } from "vuex";
 import { Radio, Button, message, Card } from "element-ui";
 import { questionList } from "./data";
 import SingleChoice from "./component/SingleChoice";
@@ -66,9 +67,11 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$store.state);
   },
+  computed:{
+    },
   methods: {
+    ...mapActions(['updateResult']),
     onChange: function (index, score, answer) {
       // 记录分数，以题号作为键名，方便后续使用题号进行计算
       scoreList[`score_${index + 1}`] = score;
@@ -88,18 +91,21 @@ export default {
           }, 500);
 
           complete = false;
-          console.log(i)
+          console.log(i);
           break;
         }
       }
-      console.log(complete)
+      console.log(complete);
       if (complete) {
         const s = scoreList;
         // 知识体系指数
         const knowledgeSystemIndex = s["score_1"] * 0.35 + s["score_2"] * 0.65;
         // 阅读环境指数
         const readingEnvironmentIndex =
-          s["score_7"] * 0.2 + s["score_8"] * 0.1 + s["score_9"] * 0.4 + s["score_10"] * 0.3;
+          s["score_7"] * 0.2 +
+          s["score_8"] * 0.1 +
+          s["score_9"] * 0.4 +
+          s["score_10"] * 0.3;
 
         // 好奇心
         const curiosity = s["score_13"];
@@ -125,7 +131,8 @@ export default {
 
         // 学生阅读习惯指数(不记录)
         const stuReadingHabitIndex =
-          (s["score_3"] * 0.15 + s["score_4"] * 0.5 + s["score_6"] * 0.35) * s["score_5"];
+          (s["score_3"] * 0.15 + s["score_4"] * 0.5 + s["score_6"] * 0.35) *
+          s["score_5"];
         // 家长阅读习惯指数(不记录)
         const parentReadingHabitIndex = s["score_11"] * s["score_12"];
         // 阅读习惯指数
@@ -166,7 +173,11 @@ export default {
             readingIndex,
           },
         };
-        this.$store.commit("updataResult", result);
+        //Vuex修改提交这里！！！！！！
+        // this.$store.commit("updataResult", result);
+        // this.$store.dispatch('updateResult',result)
+        await this.updateResult(result)
+
         message({
           message: "正在提交结果，请稍等",
           type: "info",

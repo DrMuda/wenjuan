@@ -52,6 +52,8 @@
 
 <script>
 import Vue from "vue";
+import { mapActions } from "vuex";
+
 import {
   Form,
   FormItem,
@@ -88,6 +90,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['updateResult']),
     submit: async function () {
       const query = {
         studentName: this.$data.studentName,
@@ -116,12 +119,14 @@ export default {
           this.$router.push({
             path: "/Question",
           });
-          this.$store.commit("updataResult",query)
+          // this.$store.commit("updataResult",query)
+          this.updateResult(query)
         } else {
           this.$router.push({
             path: "/RepeatTip",
           });
-          this.$store.commit("updataResult",result)
+          this.updateResult(result)
+          // this.$store.commit("updataResult",result)
         }
       }
     },
