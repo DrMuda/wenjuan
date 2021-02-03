@@ -2,8 +2,17 @@ import axios from 'axios'
 import '../../mock/api'
 axios.defaults.baseURL = '/';
 
+// function delay(timeout){
+//     return new Promise(resolve=>{
+//         setTimeout(()=>{
+//             resolve()
+//         },timeout)
+//     })
+// }
+
 export async function isExits(params = {}) {
     try {
+        // await delay(10000)
         const result = await axios.post(
             '/api/studentDatum/verifyStudentDatum',
             params

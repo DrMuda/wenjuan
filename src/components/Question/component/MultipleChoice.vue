@@ -2,7 +2,7 @@
 
 <template>
   <!-- 一般的多选题 -->
-  <el-card class="question">
+  <el-card class="question_multiple_chioce_2">
     <span class="qTitle">{{
       `${question.index + 1}.\t${question.question}(多选)`
     }}</span>
@@ -71,39 +71,46 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @fontSize1: 6vw;
 @fontSize2: 5vw;
 @fontSize3: 4vw;
-/deep/ .el-checkbox__label {
-  text-overflow: ellipsis;
-  white-space: normal;
-  vertical-align: middle;
-  display: inline-block;
-}
-.question {
+
+.question_multiple_chioce_2 {
   width: 100vw;
   margin: 0px;
   box-sizing: border-box;
   font-size: @fontSize3;
   // padding: 24px;
   border-bottom: 1px #ddd solid;
-  /deep/ * {
+  color: inherit;
+  * {
     font-size: @fontSize3;
   }
-  /deep/ .options {
+  .qTitle {
+    color: inherit;
+  }
+  .el-checkbox__label {
+    text-overflow: ellipsis;
+    white-space: normal;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .options {
     padding: 16px;
-    /deep/ .option {
+    .option {
       display: block !important;
-      margin: 8px;
+      margin: 16px;
+      line-height: @fontSize3 * 1.5;
     }
-    /deep/ .el-checkbox__inner {
+    .el-checkbox__inner {
       // width: 14px;
       // height: 14px;
       width: @fontSize3;
       height: @fontSize3;
     }
-    /deep/ .el-checkbox__inner::after {
+
+    .el-checkbox__inner::after {
       @height:@fontSize3 * ( 7 / 14 );
       height: @height;
       width: @height * (3 / 7);

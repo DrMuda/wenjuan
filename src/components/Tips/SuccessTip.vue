@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="success_tip">
     <span class="title">读书房入学测评</span>
     <i class="el-icon-circle-check" />
     <span class="tips">提交成功，可点击查看测评报告</span>
@@ -27,33 +27,34 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @fontSize1: 6vw;
 @fontSize2: 5vw;
 @fontSize3: 4vw;
 
-.content {
+.success_tip {
   text-align: center;
-}
-.title {
-  display: block;
-  font-size: @fontSize1;
-  margin: 10vw auto;
-}
-.el-icon-circle-check {
-  display: block;
-}
-.el-icon-circle-check::before {
-  font-size: 30vw;
-  color:#52c41a;
-}
-.tips {
-  display: block;
-  font-size: @fontSize3;
-}
-.button {
-  width: 30vw;
-  font-size: @fontSize3;
-  margin: 24px;
+
+  .title {
+    display: block;
+    font-size: @fontSize1;
+    margin: 10vw auto;
+  }
+  .el-icon-circle-check {
+    display: block;
+  }
+  .el-icon-circle-check::before {
+    font-size: 30vw;
+    color: #52c41a;
+  }
+  .tips {
+    display: block;
+    font-size: @fontSize3;
+  }
+  .button {
+    width: 30vw;
+    font-size: @fontSize3;
+    margin: 24px;
+  }
 }
 </style>

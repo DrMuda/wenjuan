@@ -1,5 +1,5 @@
 <template>
-  <div class="info">
+  <div class="background_info">
     <span class="title">读书房入学测评</span>
     <span class="tips">前10道题由学生作答，</span>
     <span class="tips">后10道题由家长作答。</span>
@@ -50,9 +50,9 @@
 
 <script>
 import Vue from "vue";
-import { Input, Button, DatePicker, message } from "element-ui";
+import { Input, Button, DatePicker } from "element-ui";
 import { mapActions } from "vuex";
-import { isExits, checkLinedIsInvalid } from "../../services/config";
+import { checkLinedIsInvalid } from "../../services/config";
 
 Vue.use(Input);
 Vue.use(Button);
@@ -78,21 +78,24 @@ export default {
     const result = await checkLinedIsInvalid();
     if (!result.data.status) {
       this.$router.push({
-        path: "/Error",
+        path: "/Invalid",
       });
     } else if (result.data.code !== 200) {
       this.$router.push({
-        path: "/Error",
+        path: "/Invalid",
       });
     }
   },
   methods: {
-    ...mapActions(['updateResult']),
+    ...mapActions(["updateResult"]),
     submit: async function () {
       const query = {
         studentName: this.$data.studentName,
         school: this.$data.school,
-        birthday: this.$data.birthday.toLocaleString().split(" ")[0].replace(/\//g,"-"),
+        birthday: this.$data.birthday
+          .toLocaleString()
+          .split(" ")[0]
+          .replace(/\//g, "-"),
         grade: this.$data.grade,
       };
       let complete = true; // 验证是否填写完整
@@ -109,143 +112,102 @@ export default {
       }
 
       if (complete) {
-        // 验证是否重复填写问卷
-        message({
-          message: "请稍等...",
-          type: "info",
+        this.$router.push({
+          path: "/Question",
         });
-        this.$data.disabled = true;
-        let result = await isExits(query);
-        this.$data.disabled = false;
-
-        result = result.data;
-
-        if (result.status) {
-          if (!result.data) {
-            this.$router.push({
-              path: "/Question",
-            });
-           this.updateResult(query)
-          } else {
-            result = {
-              ...query,
-              scoreList: result?.data?.[0],
-              answerList: result?.data?.[1],
-              statistics: {
-                knowledgeSystemIndex: result?.data?.[2]?.knowledge,
-                readingEnvironmentIndex: result?.data?.[2]?.readEnvironment,
-                curiosity: result?.data?.[2]?.inquisitive,
-                creativeAbility: result?.data?.[2]?.creativity,
-                focus: result?.data?.[2]?.concentrate,
-                socialCommunicationSkills: result?.data?.[2]?.expression,
-                confidence: result?.data?.[2]?.confidence,
-                logicalAnalysisAbility: result?.data?.[2]?.analyse,
-                readingLiteracyIndex: result?.data?.[2]?.readMoral,
-                readingInterestIndex: result?.data?.[2]?.readInterest,
-                readingHabitsIndex: result?.data?.[2]?.readHabit,
-                readingIndex: result?.data?.[2]?.readIndex,
-              },
-            };
-            this.$router.push({
-              path: "/RepeatTip",
-            });
-            this.updateResult(result)
-          }
-        } else {
-          message({
-            message: "网络出错，请稍候再次尝试",
-            type: "error",
-          });
-          this.updateResult(result)
-        }
+        this.updateResult(query);
       }
     },
   },
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @fontSize1: 6vw;
 @fontSize2: 5vw;
 @fontSize3: 4vw;
 
-.info {
+.background_info {
   box-sizing: border-box;
   width: 100vw;
   text-align: center;
-  /deep/ .title {
+  .title {
     display: block;
     font-size: @fontSize1;
     padding: 10vw;
   }
-  /deep/ .tips {
+  .tips {
     display: block;
     font-size: @fontSize2;
   }
-   .form {
+  .form {
     margin: @fontSize1 auto 0;
     width: 80vw;
     min-width: 320px;
-     * {
+    * {
       font-size: @fontSize3 !important;
     }
-     .item {
+    .item {
       display: -webkit-box;
       display: -webkit-box;
       display: flex;
       margin: 0 auto;
       justify-content: space-between;
+      align-items: center;
       -webkit-justify-content: space-between;
       -webkit-align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
     }
-     .label {
+    .label {
       width: 6em;
       text-align: right;
-       .required {
+      .required {
         color: red;
       }
     }
-     .inputInfo {
+    .inputInfo {
       flex: auto;
       height: @fontSize1 !important;
       min-height: 30px;
-      /deep/ .el-input {
+      .el-input {
         width: 100% !important;
         height: 100% !important;
-        /deep/ .el-input__inner {
+        .el-input__inner {
           width: 100% !important;
           height: 100% !important;
           padding-left: @fontSize1 * (3.5 / 4);
           padding-right: @fontSize1 * (3 / 4);
         }
-        /deep/ .el-input__prefix {
+        .el-input__prefix {
           height: @fontSize1;
+          min-height: 30px;
           width: @fontSize1 * (3 / 4);
         }
-        /deep/ .el-input__suffix {
+        .el-input__suffix {
           height: @fontSize1;
+          min-height: 30px;
           width: @fontSize1 * (3 / 4);
         }
-        /deep/ .el-input__icon {
+        .el-input__icon {
           width: 100%;
+          min-height: 30px;
           line-height: @fontSize1;
         }
       }
     }
-    /deep/ .submit {
+    .submit {
       display: inline-block;
       margin: 0 auto;
       margin-top: 8px;
       width: 50vw;
     }
   }
-}
 
-.redBorder /deep/ input {
-  border-color: #f5222d;
-}
-.null {
-  transition: 2s;
+  .redBorder input {
+    border-color: #f5222d;
+  }
+  .null {
+    transition: 2s;
+  }
 }
 </style>

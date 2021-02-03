@@ -34,9 +34,9 @@ const routes = [
     component:"/Report/Report.vue"
   },
   {
-    name:"Error",
-    path:"/Error",
-    component:"/Tips/Error.vue"
+    name:"Invalid",
+    path:"/Invalid",
+    component:"/Tips/Invalid.vue"
   }
 ];
 

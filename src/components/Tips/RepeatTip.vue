@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="repeat_tip">
     <span class="title">读书房入学测评</span>
     <i class="el-icon-warning-outline" />
     <span class="tips">您已提交过该测评，可点击查看测评报告</span>
@@ -27,32 +27,32 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @fontSize1: 6vw;
 @fontSize2: 5vw;
 @fontSize3: 4vw;
 
-.content {
+.repeat_tip {
   text-align: center;
-}
-.title {
-  display: block;
-  font-size: @fontSize1;
-  margin: 10vw auto;
-}
-.el-icon-warning-outline {
-  display: block;
-}
-.el-icon-warning-outline::before {
-  font-size: 30vw;
-  color: rgb(251, 186, 56);
-}
-.tips {
-  display: block;
-  font-size: @fontSize3;
-}
-.button {
-  font-size: @fontSize3;
-  margin: 24px;
+  .title {
+    display: block;
+    font-size: @fontSize1;
+    margin: 10vw auto;
+  }
+  .el-icon-warning-outline {
+    display: block;
+  }
+  .el-icon-warning-outline::before {
+    font-size: 30vw;
+    color: rgb(251, 186, 56);
+  }
+  .tips {
+    display: block;
+    font-size: @fontSize3;
+  }
+  .button {
+    font-size: @fontSize3;
+    margin: 24px;
+  }
 }
 </style>

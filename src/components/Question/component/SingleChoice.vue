@@ -1,5 +1,5 @@
 <template>
-  <el-card class="question">
+  <el-card class="question_single_chioce">
     <span class="qTitle">{{
       `${question.index + 1}.\t${question.question}(单选)`
     }}</span>
@@ -46,38 +46,43 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @fontSize1: 6vw;
 @fontSize2: 5vw;
 @fontSize3: 4vw;
 
-/deep/ .el-radio__label {
-  text-overflow: ellipsis;
-  white-space: normal;
-  vertical-align: middle;
-  display: inline-block;
-}
-.question {
+.question_single_chioce {
   width: 100vw;
   margin: 0px;
   box-sizing: border-box;
   font-size: @fontSize3;
-  // padding: 16px;
   border-bottom: 1px #ddd solid;
-  /deep/ * {
+  color: inherit;
+  * {
     font-size: @fontSize3;
   }
-   .options {
+  .qTitle {
+    color: inherit;
+  }
+  .el-radio__label {
+    text-overflow: ellipsis;
+    white-space: normal;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .options {
     padding: 16px;
-     .option {
+    .option {
       display: block !important;
-      margin: 8px;
+      margin: 16px;
+      line-height: @fontSize3 * 1.5;
     }
-    /deep/ .el-radio__inner {
+    .el-radio__inner {
       width: @fontSize3;
       height: @fontSize3;
     }
-    /deep/ .el-radio__inner::after {
+
+    .el-radio__inner::after {
       @height:@fontSize3 * ( 4 / 14 );
       height: @height;
       width: @height;

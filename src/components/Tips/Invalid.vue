@@ -1,8 +1,8 @@
 <template>
-  <div class="content">
+  <div class="invalid">
     <div>
       <i class="el-icon-warning"></i>
-      <br/>
+      <br />
       <span>链接失效</span>
     </div>
   </div>
@@ -15,25 +15,25 @@ import { Button } from "element-ui";
 Vue.use(Button);
 
 export default {
-  name: "Error",
+  name: "Invalid",
 };
 </script>
 
-<style lang="less" scoped>
-.content {
-  display:flex;
+<style lang="less">
+.invalid {
+  display: flex;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
   text-align: center;
   justify-content: center;
   align-items: center;
-}
-.el-icon-warning {
+  .el-icon-warning {
     color: red;
     font-size: 30vw;
-}
-span{
+  }
+  span {
     font-size: 6vw;
+  }
 }
 </style>

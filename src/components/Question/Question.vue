@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="question">
     <el-card class="title">读书房入学测评</el-card>
-
     <div
       :questionList="questionList"
       v-for="question in questionList"
       :key="question.index"
+      class="main"
     >
       <el-card v-if="question.index === 0" class="tips"
         >前10道题目由学生作答</el-card
@@ -25,7 +25,11 @@
       </div>
     </div>
     <div>
-      <el-button type="primary" class="submit" v-on:click="submit"
+      <el-button
+        type="primary"
+        class="submit"
+        v-on:click="submit"
+        :disabled="disabled"
         >提交问卷</el-button
       >
     </div>
@@ -40,7 +44,7 @@ import { questionList } from "./data";
 import SingleChoice from "./component/SingleChoice";
 import MultipleChoice from "./component/MultipleChoice";
 import MultipleChoice2 from "./component/MultipleChoice2";
-import { addResult } from "../../services/config";
+import { isExits, addResult } from "../../services/config";
 
 Vue.use(Radio);
 Vue.use(Button);
@@ -58,6 +62,7 @@ export default {
   },
   data() {
     return {
+      disabled: false,
       questionList: questionList.map((question, index) => {
         return {
           index,
@@ -66,6 +71,55 @@ export default {
       }),
     };
   },
+
+  async mounted() {
+    // 验证是否重复测评
+    let query = this.$store.state.result;
+    query = {
+      birthday: query.birthday,
+      grade: query.grade,
+      school: query.school,
+      studentName: query.studentName,
+    };
+    this.$data.disabled = true;
+    let result = await isExits(query);
+    result = result.data;
+    if (result.status) {
+      if (!result.data) {
+        this.$data.disabled = false;
+      } else {
+        result = {
+          ...query,
+          scoreList: result?.data?.[0],
+          answerList: result?.data?.[1],
+          statistics: {
+            knowledgeSystemIndex: result?.data?.[2]?.knowledge,
+            readingEnvironmentIndex: result?.data?.[2]?.readEnvironment,
+            curiosity: result?.data?.[2]?.inquisitive,
+            creativeAbility: result?.data?.[2]?.creativity,
+            focus: result?.data?.[2]?.concentrate,
+            socialCommunicationSkills: result?.data?.[2]?.expression,
+            confidence: result?.data?.[2]?.confidence,
+            logicalAnalysisAbility: result?.data?.[2]?.analyse,
+            readingLiteracyIndex: result?.data?.[2]?.readMoral,
+            readingInterestIndex: result?.data?.[2]?.readInterest,
+            readingHabitsIndex: result?.data?.[2]?.readHabit,
+            readingIndex: result?.data?.[2]?.readIndex,
+          },
+        };
+        this.$router.push({
+          path: "/RepeatTip",
+        });
+        this.updateResult(result);
+      }
+    } else {
+      message({
+        message: "网络出错，请稍候再次尝试",
+        type: "error",
+      });
+    }
+  },
+
   methods: {
     ...mapActions(["updateResult"]),
     onChange: function (index, score, answer) {
@@ -80,7 +134,6 @@ export default {
           const el = document.getElementById(`Q${i - 1}`);
           const { offsetLeft, offsetTop } = el;
           window.scrollTo(offsetLeft, offsetTop);
-
           el.className = "redFont";
           setTimeout(() => {
             el.className = "blackFont";
@@ -177,14 +230,15 @@ export default {
         // this.$store.commit("updataResult", result);
         // this.$store.dispatch('updateResult',result)
         await this.updateResult(result);
-
-        message({
+        this.$data.disabled = true;
+        const waitMessage = message({
           message: "正在提交结果，请稍等",
           type: "info",
         });
         document.getElementsByClassName("");
         const submitResult = await addResult(result);
-        message.close();
+        waitMessage.close();
+        this.$data.disabled = false;
         if (submitResult.data.status) {
           this.$router.push({
             path: "/SuccessTip",
@@ -201,35 +255,39 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @fontSize1: 6vw;
 @fontSize2: 5vw;
 @fontSize3: 4vw;
 
-.title {
-  font-size: @fontSize1;
-  text-align: center;
-  border-bottom: 1px #ccc solid;
-  padding: 16px;
-}
-.tips {
-  font-size: @fontSize3;
-  text-align: center;
-  border-bottom: 1px #ccc solid;
-  padding: 8px;
-}
-.submit {
-  display: block;
-  font-size: @fontSize3;
-  margin: 0 auto;
-  margin-top: 36px;
-  margin-bottom: 36px;
-  width: 50vw;
-}
-.redFont {
-  color: #f5222d;
-}
-.blackFont {
-  transition: 0.5s;
+.question {
+  .title {
+    font-size: @fontSize1;
+    text-align: center;
+    border-bottom: 1px #ccc solid;
+    padding: 16px;
+  }
+  .tips {
+    font-size: @fontSize3;
+    text-align: center;
+    border-bottom: 1px #ccc solid;
+    padding: 8px;
+  }
+  .submit {
+    display: block;
+    font-size: @fontSize3;
+    margin: 0 auto;
+    margin-top: 36px;
+    margin-bottom: 36px;
+    width: 50vw;
+  }
+  .main {
+    .redFont {
+      color: #f5222d;
+    }
+    .blackFont {
+      transition: 0.5s;
+    }
+  }
 }
 </style>
