@@ -238,13 +238,13 @@ export default {
       var option = {
         legend: {
           textStyle: {
-            fontSize: document.documentElement.innerWidth>1024? 23:this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
           },
           y: "bottom",
         },
         tooltip: {
           textStyle: {
-            fontSize: document.documentElement.innerWidth>1024? 23:this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
           },
         },
         dataset: {
