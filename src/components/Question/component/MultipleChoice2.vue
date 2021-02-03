@@ -98,55 +98,63 @@ export default {
 </script>
 
 <style lang="less">
-@fontSize1: 6vw;
-@fontSize2: 5vw;
-@fontSize3: 4vw;
+.fun(100vw);
+@media (min-width: 1080px) {
+  .fun(1080px);
+}
 
-.question_multiple_chioce {
-  width: 100vw;
-  margin: 0px;
-  box-sizing: border-box;
-  font-size: @fontSize3;
-  // padding: 24px;
-  border-bottom: 1px #ddd solid;
-  color: inherit;
-  * {
+.fun(@basewidth) {
+  @fontSize1: 6 * 0.01 * @basewidth;
+  @fontSize2: 5 * 0.01 * @basewidth;
+  @fontSize3: 4 * 0.01 * @basewidth;
+
+  .question_multiple_chioce {
+    width: 100 * 0.01 * @basewidth;
+    margin: 0px;
+    box-sizing: border-box;
     font-size: @fontSize3;
-  }
-  .qTitle {
+    // padding: 24px;
+    border-bottom: 1px #ddd solid;
     color: inherit;
-  }
-  .el-checkbox__label {
-    text-overflow: ellipsis;
-    white-space: normal;
-    vertical-align: middle;
-    display: inline-block;
-  }
-  .options {
-    padding: 16px;
-    .option {
-      display: block !important;
-      margin: 16px;
-      line-height: @fontSize3 * 1.5;
+    margin: 0 auto;
+    * {
+      font-size: @fontSize3;
     }
-    .el-checkbox__inner {
-      // width: 14px;
-      // height: 14px;
-      width: @fontSize3;
-      height: @fontSize3;
+    .qTitle {
+      color: inherit;
     }
-    .el-checkbox__inner::after {
-      @height:@fontSize3 * ( 7 / 14 );
-      height: @height;
-      width: @height * (3 / 7);
-      left: @height * (4 / 7);
-      top: @height * (1 / 7);
-      border-width: @height * (1 / 7);
+    .el-checkbox__label {
+      text-overflow: ellipsis;
+      white-space: normal;
+      vertical-align: middle;
+      display: inline-block;
+    }
+    .options {
+      padding: 16px;
+      .option {
+        display: block !important;
+        margin: 16px;
+        line-height: @fontSize3 * 1.5;
+      }
+      .el-checkbox__inner {
+        // width: 14px;
+        // height: 14px;
+        width: @fontSize3;
+        height: @fontSize3;
+      }
+      .el-checkbox__inner::after {
+        @height:@fontSize3 * ( 7 / 14 );
+        height: @height;
+        width: @height * (3 / 7);
+        left: @height * (4 / 7);
+        top: @height * (1 / 7);
+        border-width: @height * (1 / 7);
 
-      // height: 7px;
-      // left: 4px;
-      // top: 1px;
-      // width: 3px;
+        // height: 7px;
+        // left: 4px;
+        // top: 1px;
+        // width: 3px;
+      }
     }
   }
 }

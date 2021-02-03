@@ -20,20 +20,28 @@ export default {
 </script>
 
 <style lang="less">
-.invalid {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  .el-icon-warning {
-    color: red;
-    font-size: 30vw;
-  }
-  span {
-    font-size: 6vw;
+.fun(100vw);
+@media (min-width: 1080px) {
+  .fun(1080px);
+}
+
+.fun(@basewidth) {
+  .invalid {
+    display: flex;
+    height: 100vh;
+    width: 100 * 0.01 * @basewidth;
+    overflow: hidden;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin:0 auto;
+    .el-icon-warning {
+      color: red;
+      font-size: 30 * 0.01 * @basewidth;
+    }
+    span {
+      font-size: 6 * 0.01 * @basewidth;
+    }
   }
 }
 </style>

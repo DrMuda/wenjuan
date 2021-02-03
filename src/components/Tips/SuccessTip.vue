@@ -28,33 +28,38 @@ export default {
 </script>
 
 <style lang="less">
-@fontSize1: 6vw;
-@fontSize2: 5vw;
-@fontSize3: 4vw;
+.fun(100vw);
+@media (min-width: 1080px) {
+  .fun(1080px);
+}
 
-.success_tip {
-  text-align: center;
+.fun(@basewidth) {
+  @fontSize1: 6 * 0.01 * @basewidth;
+  @fontSize2: 5 * 0.01 * @basewidth;
+  @fontSize3: 4 * 0.01 * @basewidth;
+  .success_tip {
+    text-align: center;
 
-  .title {
-    display: block;
-    font-size: @fontSize1;
-    margin: 10vw auto;
-  }
-  .el-icon-circle-check {
-    display: block;
-  }
-  .el-icon-circle-check::before {
-    font-size: 30vw;
-    color: #52c41a;
-  }
-  .tips {
-    display: block;
-    font-size: @fontSize3;
-  }
-  .button {
-    width: 30vw;
-    font-size: @fontSize3;
-    margin: 24px;
+    .title {
+      display: block;
+      font-size: @fontSize1;
+      margin: 10 * 0.01 * @basewidth auto;
+    }
+    .el-icon-circle-check {
+      display: block;
+    }
+    .el-icon-circle-check::before {
+      font-size: 30 * 0.01 * @basewidth;
+      color: #52c41a;
+    }
+    .tips {
+      display: block;
+      font-size: @fontSize3;
+    }
+    .button {
+      font-size: @fontSize3;
+      margin: 24px;
+    }
   }
 }
 </style>

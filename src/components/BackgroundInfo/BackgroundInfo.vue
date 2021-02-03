@@ -1,5 +1,5 @@
 <template>
-  <div class="background_info">
+  <div class="background_info" style="width: 100 * 0.01 * @basewidth">
     <span class="title">读书房入学测评</span>
     <span class="tips">前10道题由学生作答，</span>
     <span class="tips">后10道题由家长作答。</span>
@@ -75,6 +75,7 @@ export default {
     };
   },
   async mounted() {
+    this.updateResult({});
     const result = await checkLinedIsInvalid();
     if (!result.data.status) {
       this.$router.push({
@@ -123,91 +124,96 @@ export default {
 </script>
 
 <style lang="less">
-@fontSize1: 6vw;
-@fontSize2: 5vw;
-@fontSize3: 4vw;
+.fun(100vw);
+@media (min-width: 1080px) {
+  .fun(1080px);
+}
 
-.background_info {
-  box-sizing: border-box;
-  width: 100vw;
-  text-align: center;
-  .title {
-    display: block;
-    font-size: @fontSize1;
-    padding: 10vw;
-  }
-  .tips {
-    display: block;
-    font-size: @fontSize2;
-  }
-  .form {
-    margin: @fontSize1 auto 0;
-    width: 80vw;
-    min-width: 320px;
-    * {
-      font-size: @fontSize3 !important;
+.fun(@basewidth) {
+  @fontSize1: 6 * 0.01 * @basewidth;
+  @fontSize2: 5 * 0.01 * @basewidth;
+  @fontSize3: 4 * 0.01 * @basewidth;
+  .background_info {
+    box-sizing: border-box;
+    width: 100 * 0.01 * @basewidth;
+    text-align: center;
+    margin: 0 auto;
+    .title {
+      display: block;
+      font-size: @fontSize1;
+      padding: 10 * 0.01 * @basewidth;
     }
-    .item {
-      display: -webkit-box;
-      display: -webkit-box;
-      display: flex;
-      margin: 0 auto;
-      justify-content: space-between;
-      align-items: center;
-      -webkit-justify-content: space-between;
-      -webkit-align-items: center;
-      margin-bottom: 16px;
+    .tips {
+      display: block;
+      font-size: @fontSize2;
     }
-    .label {
-      width: 6em;
-      text-align: right;
-      .required {
-        color: red;
+    .form {
+      margin: @fontSize1 auto 0;
+      width: 80 * 0.01 * @basewidth;
+      min-width: 320px;
+      * {
+        font-size: @fontSize3 !important;
       }
-    }
-    .inputInfo {
-      flex: auto;
-      height: @fontSize1 !important;
-      min-height: 30px;
-      .el-input {
-        width: 100% !important;
-        height: 100% !important;
-        .el-input__inner {
+      .item {
+        display: flex;
+        margin: 0 auto;
+        justify-content: space-between;
+        align-items: center;
+        -webkit-justify-content: space-between;
+        -webkit-align-items: center;
+        margin-bottom: 16px;
+      }
+      .label {
+        flex: 2;
+        text-align: right;
+        .required {
+          color: red;
+        }
+      }
+      .inputInfo {
+        flex: 4;
+        height: @fontSize1 !important;
+        min-height: 30px;
+        .el-input {
           width: 100% !important;
           height: 100% !important;
-          padding-left: @fontSize1 * (3.5 / 4);
-          padding-right: @fontSize1 * (3 / 4);
-        }
-        .el-input__prefix {
-          height: @fontSize1;
-          min-height: 30px;
-          width: @fontSize1 * (3 / 4);
-        }
-        .el-input__suffix {
-          height: @fontSize1;
-          min-height: 30px;
-          width: @fontSize1 * (3 / 4);
-        }
-        .el-input__icon {
-          width: 100%;
-          min-height: 30px;
-          line-height: @fontSize1;
+          .el-input__inner {
+            width: 100% !important;
+            height: 100% !important;
+            padding-left: @fontSize1 * (3.5 / 4);
+            padding-right: @fontSize1 * (3 / 4);
+          }
+          .el-input__prefix {
+            height: @fontSize1;
+            min-height: 30px;
+            width: @fontSize1 * (3 / 4);
+          }
+          .el-input__suffix {
+            height: @fontSize1;
+            min-height: 30px;
+            width: @fontSize1 * (3 / 4);
+          }
+          .el-input__icon {
+            width: 100%;
+            min-height: 30px;
+            line-height: @fontSize1;
+          }
         }
       }
+      .submit {
+        display: inline-block;
+        margin: 0 auto;
+        margin-top: 8px;
+        width: 50 * 0.01 * @basewidth;
+      }
     }
-    .submit {
-      display: inline-block;
-      margin: 0 auto;
-      margin-top: 8px;
-      width: 50vw;
-    }
-  }
 
-  .redBorder input {
-    border-color: #f5222d;
-  }
-  .null {
-    transition: 2s;
+    .redBorder input {
+      border-color: #f5222d;
+    }
+    .null {
+      transition: 2s;
+    }
   }
 }
 </style>

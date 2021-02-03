@@ -256,37 +256,45 @@ export default {
 </script>
 
 <style lang="less">
-@fontSize1: 6vw;
-@fontSize2: 5vw;
-@fontSize3: 4vw;
+.fun(100vw);
+@media (min-width: 1080px) {
+  .fun(1080px);
+}
 
-.question {
-  .title {
-    font-size: @fontSize1;
-    text-align: center;
-    border-bottom: 1px #ccc solid;
-    padding: 16px;
-  }
-  .tips {
-    font-size: @fontSize3;
-    text-align: center;
-    border-bottom: 1px #ccc solid;
-    padding: 8px;
-  }
-  .submit {
-    display: block;
-    font-size: @fontSize3;
+.fun(@basewidth) {
+  @fontSize1: 6 * 0.01 * @basewidth;
+  @fontSize2: 5 * 0.01 * @basewidth;
+  @fontSize3: 4 * 0.01 * @basewidth;
+  .question {
+    width: @basewidth;
     margin: 0 auto;
-    margin-top: 36px;
-    margin-bottom: 36px;
-    width: 50vw;
-  }
-  .main {
-    .redFont {
-      color: #f5222d;
+    .title {
+      font-size: @fontSize1;
+      text-align: center;
+      border-bottom: 1px #ccc solid;
+      padding: 16px;
     }
-    .blackFont {
-      transition: 0.5s;
+    .tips {
+      font-size: @fontSize3;
+      text-align: center;
+      border-bottom: 1px #ccc solid;
+      padding: 8px;
+    }
+    .submit {
+      display: block;
+      font-size: @fontSize3;
+      margin: 0 auto;
+      margin-top: 36px;
+      margin-bottom: 36px;
+      width: 50 * 0.01 * @basewidth;
+    }
+    .main {
+      .redFont {
+        color: #f5222d;
+      }
+      .blackFont {
+        transition: 0.5s;
+      }
     }
   }
 }
