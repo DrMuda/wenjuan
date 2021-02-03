@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div style="height: 18vw">
+    <div class="hei18">
       <span class="header_title">读书房入学测评报告</span>
     </div>
     <!-- 基本信息 -->
@@ -35,15 +35,15 @@
         <i class="el-icon-edit-outline"></i><span class="title">测评建议</span>
       </div>
       <span class="lt">近期行动建议</span>
-      <ul style="margin-top: 3vw; width: 79%">
-        <li>在2~3周内，着手改善家庭阅读环境；</li>
-        <li>
+      <ul>
+        <li class="li2">在2~3周内，着手改善家庭阅读环境；</li>
+        <li class="li2">
           选择适合孩子的图书，扩展其基础认知范围，后期兴趣激发、习惯培养打下知识结构基础；
         </li>
       </ul>
       <span class="lt">长期阅读规划</span>
-      <ul style="margin-top: 3vw; width: 79%">
-        <li>
+      <ul>
+        <li class="li2">
           坚持长期阅读，在拓展认知范围、培养阅读习惯的基础上，完成价值观的塑造以及人格的养成。
         </li>
       </ul>
@@ -53,25 +53,13 @@
       <div class="base">
         <i class="el-icon-collection-tag"></i><span class="title">结语</span>
       </div>
-      <div style="padding-left: 6vw; font-size: 4vw; padding-top: 3vw">
+      <div class="jieyu">
         <span>{{ $store.state.result.studentName }}妈妈/爸爸，你好：</span>
-        <ul
-          style="
-            list-style: none;
-            padding: 0;
-            text-indent: 8vw;
-            width: 95%;
-            margin-left: 0;
-          "
-        >
-          <li v-for="item in epilogue" :key="item" style="margin-bottom: 2vw">
+        <ul>
+          <li v-for="item in epilogue" :key="item">
             {{ item }}
           </li>
         </ul>
-        <span
-          style="margin: 5vw 0; display: block; text-indent: 2rem; width: 95%"
-          >那时，请记此时此刻，来自书房最诚挚的问候与祝福。</span
-        >
       </div>
     </div>
   </div>
@@ -89,6 +77,7 @@ export default {
         "相信你，对孩子的期望，绝不仅仅是好成绩、好大学、好工作,而是一个人格完善、心理过硬、思想深邃、格局远大的人。不管环境如何变化，走到哪里，都不可替代，也总能脱颖而出。实现这个目标，我们需要的，是一个丰富的精神世界，滋养灵魂，提供源源不断的动力。",
         "如果说构建精神世界，有捷径，那就是阅读。沉浸在书海的孩子，不管认识了更多的字，对学习产生了兴趣，变得更加专注、更自信；还是在成绩优秀的基础上，思想更深刻，逻辑更清晰，悟性越来越强——他都收获了来自阅读最美好的祝福！",
         "而实现这一切，当下，只需要打开一本合适的书，找到合适的领路人，一直读下去，不经意间，已走到精神的沃土。",
+        "那时，请记此时此刻，来自书房最诚挚的问候与祝福。"
       ],
     };
   },
@@ -108,7 +97,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@size: 6vw;
+@size6: 6vw;
 /deep/ .el-divider--horizontal {
   height: 2px;
   width: 90%;
@@ -122,21 +111,27 @@ export default {
   z-index: 100;
   text-align: center;
   font-weight: bold;
-  font-size: @size;
-  // font-size: (@size / 2);
+  font-size: @size6;
   padding: 5vw 0;
 }
-@media screen and (min-width: 1025px) {
-  .home {
-    padding: 0 18%;
+
+.hei18 {
+  height: 18vw;
+}
+.jieyu {
+  padding-left: 6vw;
+  font-size: 4vw;
+  padding-top: 3vw;
+  ul {
+    list-style: none;
+    padding: 0;
+    text-indent: 8vw;
+    width: 95%;
+    margin-left: 0;
   }
-  .header_title {
-    width: 70% ;
-    // width: 70% !important;
-    // font-size: (@size / 2) !important;
-    font-size: (@size / 2);
+  li {
+    margin-bottom: 2vw;
   }
-  
 }
 .home {
   i {
@@ -174,6 +169,8 @@ export default {
     ul {
       padding: 0;
       margin: 5vw 0;
+      margin-top: 3vw;
+      width: 79%;
       li {
         margin-left: 24vw;
         list-style: none;
@@ -206,6 +203,11 @@ export default {
     li {
       font-size: 4vw;
     }
+    .li2{
+      width: 85%
+    }
   }
 }
+
+@import url("./css/report.less");
 </style>

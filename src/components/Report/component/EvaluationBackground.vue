@@ -51,7 +51,7 @@
     <el-divider></el-divider>
     <div class="grade_change">
       <span class="content_title">在校成绩变化图</span>
-      <span class="content_title" style="font-size: 4vw"
+      <span class="content_title" 
         >（以四年级数据为例）</span
       >
       <img src="@/pictures/read4.png" alt="在校成绩变化图" />
@@ -193,4 +193,7 @@ img {
   color:white;
   border-radius: 6vw;
 }
+
+@import url("../css/evaluationbackground.less");
+
 </style>

@@ -19,14 +19,14 @@
     </div>
 
     <span class="explain">阅读综合指数对比进入书房3年以上学员</span>
-    <div id="chart_one" style="width: 100%; height: 90vw"></div>
+    <div id="chart_one" class="chart_style"></div>
     <span class="explain">阅读综合指数对比进入书房1年以上学员</span>
-    <div id="chart_two" style="width: 100%; height: 90vw"></div>
+    <div id="chart_two" class="chart_style"></div>
     <div class="grade_list">
       <span>测试者得分列表</span>
       <el-table
         :data="testData1"
-        style="font-size: 4vw"
+        class="eltable"
         :row-style="{ height: '5vw' }"
         stripe
       >
@@ -39,15 +39,15 @@
     <el-divider></el-divider>
     <span class="content_title">阅读素养对比图</span>
     <span class="explain">阅读素养对比进入书房3年以上学员</span>
-    <div id="chart_three" style="width: 100%; height: 98vw"></div>
+    <div id="chart_three"  class="chart_style2"></div>
     <span class="explain">阅读素养对比进入书房1年以上学员</span>
-    <div id="chart_four" style="width: 100%; height: 90vw"></div>
+    <div id="chart_four" class="chart_style"></div>
     <div class="grade_list">
       <img src="@/pictures/read14.png" alt="" />
       <span>测试者得分列表</span>
       <el-table
         :data="testData2"
-        style="font-size: 4vw"
+        class="eltable"
         :row-style="{ height: '5vw' }"
         stripe
       >
@@ -208,10 +208,10 @@ export default {
       dataset_label: {
         show: true,
         position: "top",
-        fontSize: (12 * document.documentElement.clientWidth) / 375,
+        fontSize: document.documentElement.clientWidth>1024? 23 :(12 * document.documentElement.clientWidth) / 375,
       },
       text_style: (
-        (13 * document.documentElement.clientWidth) /
+        (13 * document.documentElement.innerWidth) /
         450
       ).toString(),
       timer: null,
@@ -219,7 +219,9 @@ export default {
   },
   methods: {
     show_echart1() {
-      let myChart = echarts.getInstanceByDom(document.getElementById("chart_one")); //有的话就获取已有echarts实例的DOM节点。
+      let myChart = echarts.getInstanceByDom(
+        document.getElementById("chart_one")
+      ); //有的话就获取已有echarts实例的DOM节点。
       if (myChart == null) {
         // 如果不存在，就进行初始化。
         myChart = echarts.init(document.getElementById("chart_one"));
@@ -236,13 +238,13 @@ export default {
       var option = {
         legend: {
           textStyle: {
-            fontSize: this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
           },
           y: "bottom",
         },
         tooltip: {
           textStyle: {
-            fontSize: this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
           },
         },
         dataset: {
@@ -295,7 +297,8 @@ export default {
             fontSize: (function () {
               if (document.documentElement.clientWidth >= 1024) {
                 return "23";
-              } else {
+              }
+              else {
                 return (
                   (13 * document.documentElement.clientWidth) /
                   450
@@ -307,7 +310,7 @@ export default {
         yAxis: {
           max: 100,
           axisLabel: {
-            fontSize: this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
           },
         },
         series: [
@@ -339,7 +342,9 @@ export default {
       myChart.setOption(option);
     },
     show_echart2() {
-      let myChart = echarts.getInstanceByDom(document.getElementById("chart_two")); //有的话就获取已有echarts实例的DOM节点。
+      let myChart = echarts.getInstanceByDom(
+        document.getElementById("chart_two")
+      ); //有的话就获取已有echarts实例的DOM节点。
       if (myChart == null) {
         // 如果不存在，就进行初始化。
         myChart = echarts.init(document.getElementById("chart_two"));
@@ -356,13 +361,13 @@ export default {
       var option = {
         legend: {
           textStyle: {
-            fontSize: this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
           },
           y: "bottom",
         },
         tooltip: {
           textStyle: {
-            fontSize: this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
           },
         },
         dataset: {
@@ -425,7 +430,7 @@ export default {
         yAxis: {
           max: 100,
           axisLabel: {
-            fontSize: this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
           },
         },
         series: [
@@ -456,7 +461,9 @@ export default {
       myChart.setOption(option);
     },
     show_echart3() {
-      let myChart = echarts.getInstanceByDom(document.getElementById("chart_three")); //有的话就获取已有echarts实例的DOM节点。
+      let myChart = echarts.getInstanceByDom(
+        document.getElementById("chart_three")
+      ); //有的话就获取已有echarts实例的DOM节点。
       if (myChart == null) {
         // 如果不存在，就进行初始化。
         myChart = echarts.init(document.getElementById("chart_three"));
@@ -466,23 +473,23 @@ export default {
       option = {
         tooltip: {
           textStyle: {
-            fontSize: this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 18:this.text_style,
           },
         },
         legend: {
           data: ["测试者得分", "书房3年以上学员平均得分"],
-          y: (330 * document.documentElement.clientWidth) / 375,
+          y: document.documentElement.clientWidth>1024? 0 :(330 * document.documentElement.clientWidth) / 375,
           textStyle: {
-            fontSize: this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 18:this.text_style,
           },
         },
         textStyle: {
-          fontSize: (document.documentElement.clientWidth / 375) * 11,
+          fontSize: this.compute_radar(),
         },
         radar: {
           // shape: 'circle',
-          center: ["49%", "48%"],
-          radius: (document.documentElement.clientWidth / 375) * 112,
+          center: ["49%", "50%"],
+          radius: document.documentElement.clientWidth>1024? 280 :(document.documentElement.clientWidth / 375) * 112,
           axisName: {
             textStyle: {
               color: "#fff",
@@ -495,12 +502,13 @@ export default {
             {
               name: "好奇心",
               max: 100,
+              color: "black",
             },
-            { name: "逻辑分析能力", max: 100 },
-            { name: "社交沟通能力", max: 100 },
-            { name: "自信度", max: 100 },
-            { name: "专注力", max: 100 },
-            { name: "创造力", max: 100 },
+            { name: "逻辑分析能力", max: 100, color: "black" },
+            { name: "社交沟通能力", max: 100, color: "black" },
+            { name: "自信度", max: 100, color: "black" },
+            { name: "专注力", max: 100, color: "black" },
+            { name: "创造力", max: 100, color: "black" },
           ],
         },
         series: [
@@ -536,7 +544,9 @@ export default {
       option && myChart.setOption(option);
     },
     show_echart4() {
-      let myChart = echarts.getInstanceByDom(document.getElementById("chart_four")); //有的话就获取已有echarts实例的DOM节点。
+      let myChart = echarts.getInstanceByDom(
+        document.getElementById("chart_four")
+      ); //有的话就获取已有echarts实例的DOM节点。
       if (myChart == null) {
         // 如果不存在，就进行初始化。
         myChart = echarts.init(document.getElementById("chart_four"));
@@ -554,13 +564,13 @@ export default {
       var option = {
         legend: {
           textStyle: {
-            fontSize: this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
           },
           y: "bottom",
         },
         tooltip: {
           textStyle: {
-            fontSize: this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
           },
         },
         dataset: {
@@ -629,7 +639,7 @@ export default {
         yAxis: {
           max: 100,
           axisLabel: {
-            fontSize: this.text_style,
+            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
           },
         },
         series: [
@@ -686,6 +696,14 @@ export default {
       myChart3.resize();
       myChart4.resize();
     },
+    compute_radar(){
+      if(document.documentElement.innerWidth<=1024){
+        return (document.documentElement.innerWidth / 375) * 11
+      }
+      else if(document.documentElement.innerWidth>1009){
+        return "14"
+      }
+    }
   },
   mounted() {
     this.initEcharts();
@@ -781,4 +799,16 @@ i {
     background-color: #ebebeb;
   }
 }
+.eltable {
+  font-size: 4vw;
+}
+.chart_style {
+  width: 100%;
+  height: 90vw;
+}
+.chart_style2 {
+  width: 100%;
+  height: 98vw;
+}
+@import url("../css/currentanalysis.less");
 </style>
