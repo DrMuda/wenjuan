@@ -79,6 +79,7 @@ export default {
         "而实现这一切，当下，只需要打开一本合适的书，找到合适的领路人，一直读下去，不经意间，已走到精神的沃土。",
         "那时，请记此时此刻，来自书房最诚挚的问候与祝福。"
       ],
+      test:''
     };
   },
   methods: {},
@@ -90,7 +91,7 @@ export default {
   mounted() {
     console.log("@@", this.$store.state.result);
     //计算年龄
-    let day = moment().diff(moment(this.$store.state.result.birthday), "years");
+    let day = moment().diff(moment(this.$store.state.result.birthday,"YYYY-MM-DD"), "years");
     this.age = day;
   },
 };
