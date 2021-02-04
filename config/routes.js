@@ -42,6 +42,9 @@ const routes = [
 
 
 const router = new VueRouter({
+  // 部署到服务器的文件夹名
+  base:'/questionnaire',
+  mode: 'hash',
   routes:routes.map((route)=>{
     return {
       ...route,

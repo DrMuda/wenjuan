@@ -1,6 +1,6 @@
 import axios from 'axios'
 import '../../mock/api'
-axios.defaults.baseURL = '/';
+axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
 
 // function delay(timeout){
 //     return new Promise(resolve=>{
