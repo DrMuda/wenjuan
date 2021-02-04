@@ -74,6 +74,10 @@ export default {
 
   async mounted() {
     // 验证是否重复测评
+    // 清除缓存
+    scoreList = {};
+    answerList = {};
+    console.log(scoreList, answerList);
     let query = this.$store.state.result;
     query = {
       birthday: query.birthday,

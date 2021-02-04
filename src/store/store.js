@@ -16,7 +16,8 @@ export default new Vuex.Store({
     },
     mutations:{
         UPDATE(state, a) {
-            state.result=a
+            localStorage.clear();
+            state.result = a
         }
     },
     plugins: [persistedState()]

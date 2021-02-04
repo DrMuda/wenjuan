@@ -11,7 +11,7 @@ const routes = [
   {
     name: "BackgroundInfo",
     path: "/BackgroundInfo",
-    component:"/BackgroundInfo/BackgroundInfo.vue",
+    component: "/BackgroundInfo/BackgroundInfo.vue",
   },
   {
     name: "Question",
@@ -24,38 +24,38 @@ const routes = [
     component: "/Tips/RepeatTip.vue"
   },
   {
-    name:"SuccessTip",
-    path:"/SuccessTip",
-    component:"/Tips/SuccessTip.vue"
+    name: "SuccessTip",
+    path: "/SuccessTip",
+    component: "/Tips/SuccessTip.vue"
   },
   {
-    name:"Report",
-    path:"/Report",
-    component:"/Report/Report.vue"
+    name: "Report",
+    path: "/Report",
+    component: "/Report/Report.vue"
   },
   {
-    name:"Invalid",
-    path:"/Invalid",
-    component:"/Tips/Invalid.vue"
+    name: "Invalid",
+    path: "/Invalid",
+    component: "/Tips/Invalid.vue"
   }
 ];
 
 
 const router = new VueRouter({
   // 部署到服务器的文件夹名
-  base:'/questionnaire',
+  base: '/wenjuan/',
   mode: 'hash',
-  routes:routes.map((route)=>{
+  routes: routes.map((route) => {
     return {
       ...route,
-      component:()=>{
-        try{
+      component: () => {
+        try {
           const component = import(`../src/components${route.component}`)
-          if(component){
+          if (component) {
             return component
           }
           return undefined
-        }catch(e){
+        } catch (e) {
           console.error(e)
           return undefined
         }

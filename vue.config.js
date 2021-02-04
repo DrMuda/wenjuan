@@ -1,10 +1,10 @@
 module.exports = {
-    publicPath: './',
+    publicPath: '/wenjuan/',
     devServer: {
         disableHostCheck: true,
         proxy: {
             '^/api': {
-                target: 'http://47.105.165.41:31377',
+                target: 'http://120.27.3.70:31800',
                 changeOrigin: true,
                 ws: true
             }
