@@ -114,8 +114,8 @@ export default {
       testData1: [
         {
           timu: "阅读习惯",
-          grade: this.$store.state.result.statistics.readingInterestIndex.toFixed(
-            0
+          grade: this.$store.state.result.statistics.readingHabitsIndex.toFixed(
+            0 
           ),
         },
         {
@@ -126,7 +126,7 @@ export default {
         },
         {
           timu: "阅读兴趣",
-          grade: this.$store.state.result.statistics.readingHabitsIndex.toFixed(
+          grade: this.$store.state.result.statistics.readingInterestIndex.toFixed(
             0
           ),
         },
