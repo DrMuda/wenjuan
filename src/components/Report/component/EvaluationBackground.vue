@@ -10,14 +10,13 @@
         </li>
         <li>
           共计<span class="color_red">1260份</span
-          >《石家庄约读书房阅读情况调查问卷》（注：学术型社会调查问卷要求为600份）；
+          >《石家庄约读书房阅读情况调查问卷》（注：超过一般社会调查问卷要求份数）；
         </li>
         <li>
           石家庄约读书房<span class="color_red">1090节</span>公益课反馈数据：
         </li>
-        <li>石家庄市<span class="color_red">37所</span>小学反馈数据库；</li>
-        <li>
-          以及测试者所填写的<span style="font-weight: bold"
+        <li>公益课涉及石家庄市<span class="color_red">37所</span>全日制小学；</li>
+        <li>测试者所填写的<span style="font-weight: bold"
             >《石家庄约读书房入学测评》</span
           >。
         </li>
@@ -49,13 +48,13 @@
     <el-divider></el-divider>
     <div class="grade_change">
       <span class="content_title">学习成绩变化图</span>
-      <span class="content_title" 
+      <span style="font-size:4.5vw" class="content_title"
         >（以四年级数据为例）</span
       >
       <img src="@/pictures/read4.png" alt="在校成绩变化图" />
       <img src="@/pictures/read5.png" alt="说明" />
       <span class="summary"
-        >在保证持续阅读情况下，阅读能力对成绩提升促进作用。</span
+        >阅读素养的提升与学生各个科目学习均会发生正相关作用。</span
       >
     </div>
     <el-divider></el-divider>

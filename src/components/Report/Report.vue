@@ -30,9 +30,8 @@
     <!-- 测评建议 -->
     <div class="current_analysis">
       <img src="@/pictures/b3.png" alt="pic" class="biaoti" />
-      <span class="content_title" style="margin-top: 2vw"
-        >阅读习惯培养阶段</span
-      >
+      <span class="content_title" style="margin-top: 2vw;font-size:5vw"
+        >您必须了解的阅读习惯培养阶段</span>
       <div
         class="reading_habits"
         v-for="item in cultivationOfReading"
@@ -44,12 +43,14 @@
         </ul>
       </div>
       <el-divider></el-divider>
-      <span class="summary" style="color:black;background:#f1ed6c"
+      <span style="margin-top: 2vw;font-size:5vw" class="content_title" 
+        >测评建议|具体措施</span>
+      <span class="summary" style="color:black;background:rgb(255,250,76)"
         >根据测评结果及约读书房大数据库，测试者所属阅读习惯培养阶段为：<span style="font-weight:bold">探索期</span></span
       >
       <span class="lt">近期行动建议</span>
       <ul>
-        <li class="li2">在2~3周内，着手改善家庭阅读环境；</li>
+        <li class="li2">结合老师课上反馈及当前所处阶段，确定阅读阶段目标，在此期间内根据专业指导，逐步启动习惯培养计划。</li>
         <li class="li2">
           选择适合孩子的图书，扩展其基础认知范围，后期兴趣激发、习惯培养打下知识结构基础；
         </li>
@@ -57,7 +58,7 @@
       <span class="lt">长期阅读规划</span>
       <ul>
         <li class="li2">
-          坚持长期阅读，在拓展认知范围、培养阅读习惯的基础上，完成价值观的塑造以及人格的养成。
+          通过持续阅读，全面探索孩子的兴趣点，并通过针对性引导激发其好奇心，为今后持续培养学习兴趣、终身学习打下良好基础。
         </li>
       </ul>
     </div>

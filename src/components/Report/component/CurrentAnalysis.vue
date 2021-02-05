@@ -32,6 +32,7 @@
         :data="testData1"
         class="eltable"
         :row-style="{ height: '5vw' }"
+        :cell-style="bebold"
         stripe
       >
         <el-table-column prop="timu" label="" align="center"> </el-table-column>
@@ -45,7 +46,9 @@
     <span class="explain">阅读素养对比进入书房1年以上学员</span>
     <div id="chart_four" class="chart_style"></div>
 
-    <span class="content_title" style="margin-top:5vw">阅读素养三年对比图</span>
+    <span class="content_title" style="margin-top: 5vw"
+      >阅读素养三年对比图</span
+    >
     <span class="explain">阅读素养对比进入书房3年以上学员</span>
     <div id="chart_three" class="chart_style2"></div>
     <div class="grade_list">
@@ -55,6 +58,7 @@
         :data="testData2"
         class="eltable"
         :row-style="{ height: '5vw' }"
+        :cell-style="bebold2"
         stripe
       >
         <el-table-column prop="timu" label="" align="center"> </el-table-column>
@@ -138,6 +142,10 @@ export default {
             0
           ),
         },
+        {
+          timu: "阅读总指数",
+          grade: this.$store.state.result.statistics.readingIndex.toFixed(0),
+        },
       ],
       testData2: [
         {
@@ -165,6 +173,12 @@ export default {
         {
           timu: "逻辑分析能力",
           grade: this.$store.state.result.statistics.logicalAnalysisAbility.toFixed(
+            0
+          ),
+        },
+        {
+          timu: "阅读素养指数",
+          grade: this.$store.state.result.statistics.readingLiteracyIndex.toFixed(
             0
           ),
         },
@@ -705,6 +719,16 @@ export default {
         return "14";
       }
     },
+    bebold({ row, rowIndex }) {
+      if (rowIndex == 5) {
+        return "font-weight:bolder";
+      }
+    },
+    bebold2({ row, rowIndex }) {
+      if (rowIndex == 6) {
+        return "font-weight:bolder";
+      }
+    },
   },
   mounted() {
     this.initEcharts();
@@ -784,6 +808,9 @@ i {
   margin-bottom: -3vw;
 }
 
+.bebold {
+  font-weight: bold;
+}
 .grade_list {
   position: relative;
   width: 80%;
