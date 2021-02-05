@@ -40,7 +40,8 @@
           <el-input placeholder="请输入" v-model="grade" />
         </div>
       </div>
-      <div class="item">
+      
+      <!-- <div class="item">
         <div class="label">
           <el-button
             class="verifyCodePic"
@@ -53,7 +54,7 @@
         <div class="inputInfo" id="verifyCode">
           <el-input placeholder="请输入验证码" v-model="verifyCode" />
         </div>
-      </div>
+      </div> -->
 
       <el-button
         class="submit"
@@ -73,14 +74,14 @@ import {
   Button,
   DatePicker,
   Loading,
-  message,
+  // message,
   Container,
 } from "element-ui";
 import { mapActions } from "vuex";
 import {
   checkLinedIsInvalid,
-  createVerify,
-  verify,
+  // createVerify,
+  // verify,
 } from "../../services/config";
 
 Vue.use(Input);
@@ -95,8 +96,8 @@ export default {
     return {
       pageLoading: true,
       submitDisabled: true,
-      changeVerifyCodeDisabled: false,
-      changeVerifyCodeLoading: false,
+      // changeVerifyCodeDisabled: false,
+      // changeVerifyCodeLoading: false,
       studentName: "",
       school: "",
       birthday: "",
@@ -124,7 +125,7 @@ export default {
         path: "/Invalid",
       });
     } else {
-      this.changeVerifyCode();
+      // this.changeVerifyCode();
       this.$data.submitDisabled = false;
     }
   },
@@ -153,67 +154,73 @@ export default {
         }
       }
 
-      if (!this.$data.verifyCode.replace(/(^\s*)|(\s*$) /g, "")) {
-        complete = false;
-        const el = document.getElementById("verifyCode");
-        console.log(el.className);
-        const className = `${el.className}`;
-        el.className = `${className} redBorder`;
-        setTimeout(() => {
-          el.className = `${className} null`;
-        }, 1000);
-      }
+      // 验证检验码是否填写
+      // if (!this.$data.verifyCode.replace(/(^\s*)|(\s*$) /g, "")) {
+      //   complete = false;
+      //   const el = document.getElementById("verifyCode");
+      //   console.log(el.className);
+      //   const className = `${el.className}`;
+      //   el.className = `${className} redBorder`;
+      //   setTimeout(() => {
+      //     el.className = `${className} null`;
+      //   }, 1000);
+      // }
 
       if (complete) {
         // 验证 验证码
-        const result = await verify(`${this.$data.verifyCode}`);
-        if (result.data.status) {
-          this.$router.push({
-            path: "/Question",
-          });
-          this.updateResult(query);
-        } else {
-          message({
-            message: "验证码错误",
-            type: "error",
-            center: true,
-          });
-        }
-      }
-    },
-    async changeVerifyCode() {
-      this.$data.changeVerifyCodeDisabled = true;
-      this.$data.changeVerifyCodeLoading = true;
-      this.$data.submitDisabled = true;
-      const verifyCodePicEle = document.getElementsByClassName(
-        "verifyCodePic"
-      )[0];
+        // const result = await verify(`${this.$data.verifyCode}`);
+        // if (result.data.status) {
+        //   this.$router.push({
+        //     path: "/Question",
+        //   });
+        //   this.updateResult(query);
+        // } else {
+        //   message({
+        //     message: "验证码错误",
+        //     type: "error",
+        //     center: true,
+        //   });
+        // }
 
-      const result = await createVerify();
-      if (result.status === 200 && result?.data) {
-        // const img = window.URL.createObjectURL(verifyImage.data);
-        const img =
-          "data:image/png;base64," +
-          btoa(
-            new Uint8Array(result.data).reduce(
-              (data, byte) => data + String.fromCharCode(byte),
-              ""
-            )
-          );
-        verifyCodePicEle.style.backgroundImage = `url(${img})`;
-        this.$data.submitDisabled = false;
-      } else {
-        verifyCodePicEle.innerHTML = "点击刷新";
-        message({
-          message: "网络出错，请稍后再次尝试",
-          type: "error",
-          center: true,
+        this.$router.push({
+          path: "/Question",
         });
-        this.$data.submitDisabled = true;
+        this.updateResult(query);
       }
-      this.$data.changeVerifyCodeLoading = false;
-      this.$data.changeVerifyCodeDisabled = false;
     },
+    // async changeVerifyCode() {
+    //   this.$data.changeVerifyCodeDisabled = true;
+    //   this.$data.changeVerifyCodeLoading = true;
+    //   this.$data.submitDisabled = true;
+    //   const verifyCodePicEle = document.getElementsByClassName(
+    //     "verifyCodePic"
+    //   )[0];
+
+    //   const result = await createVerify();
+    //   if (result.status === 200 && result?.data) {
+    //     // const img = window.URL.createObjectURL(verifyImage.data);
+    //     const img =
+    //       "data:image/png;base64," +
+    //       btoa(
+    //         new Uint8Array(result.data).reduce(
+    //           (data, byte) => data + String.fromCharCode(byte),
+    //           ""
+    //         )
+    //       );
+    //     verifyCodePicEle.style.backgroundImage = `url(${img})`;
+    //     this.$data.submitDisabled = false;
+    //   } else {
+    //     verifyCodePicEle.innerHTML = "点击刷新";
+    //     message({
+    //       message: "网络出错，请稍后再次尝试",
+    //       type: "error",
+    //       center: true,
+    //     });
+    //     this.$data.submitDisabled = true;
+    //   }
+    //   this.$data.changeVerifyCodeLoading = false;
+    //   this.$data.changeVerifyCodeDisabled = false;
+    // },
   },
 };
 </script>
