@@ -1,8 +1,6 @@
 <template>
   <div class="EvaluationBackground">
-    <div class="base">
-      <i class="el-icon-document"></i><span class="title">测评背景</span>
-    </div>
+    <img src="@/pictures/b1.png" alt="pic"  class="biaoti"/>
     <div class="content">
       <span class="lt">数据来源</span>
       <span class="re">本报告所采用数据如下：</span>
@@ -38,8 +36,8 @@
     <el-divider></el-divider>
     <div class="habby_compare">
       <span class="content_title">阅读习惯对比图</span>
-      <span class="explain">未入书房学习时学员数据</span>
-      <img src="@/pictures/read1.png" alt="未入书房学习时学员数据" />
+      <span class="explain">入书房之前学员数据</span>
+      <img src="@/pictures/read1.png" alt="入书房之前学员数据" />
       <img src="@/pictures/read2.png" alt="说明" />
       <span class="explain">在书房学习超过1年的学员数据</span>
       <img src="@/pictures/read3.png" alt="在书房学习超过1年的学员数据" />
@@ -50,7 +48,7 @@
     </div>
     <el-divider></el-divider>
     <div class="grade_change">
-      <span class="content_title">在校成绩变化图</span>
+      <span class="content_title">学习成绩变化图</span>
       <span class="content_title" 
         >（以四年级数据为例）</span
       >
@@ -61,14 +59,14 @@
       >
     </div>
     <el-divider></el-divider>
-    <div class="accomplishment_change">
-      <span class="content_title">阅读素养变化图</span>
-      <img src="@/pictures/read6.png" alt="阅读素养变化图" />
-      <img src="@/pictures/read7.png" alt="说明" />
+    <div class="effect_compare">
+      <span class="content_title">阅读行为模式对比图</span>
+      <img src="@/pictures/read12.png" alt="阅读效果对比图" />
+      <img src="@/pictures/read13.png" alt="阅读效果对比图" />
+      <span class="summary"
+        >书籍的选择，阅读环境的构建，正确的引导，是激励孩子持续阅读的重要因素。
+      </span>
     </div>
-    <span class="summary"
-      >持续阅读对学员内在思维的塑造、人格养成、品质塑造的影响。
-    </span>
     <el-divider></el-divider>
     <div class="time_change">
       <span class="content_title">阅读时长增长图</span>
@@ -89,6 +87,7 @@
     <div class="read_accumulation">
       <span class="content_title">阅读量累计图</span>
       <img src="@/pictures/read10.png" alt="阅读量累计图" />
+      <img src="@/pictures/beizhu.png" alt="备注" />
       <img
         src="@/pictures/read11.png"
         alt="阅读量累计图"
@@ -98,15 +97,7 @@
         >随阅读能力（专注时长、阅读速度）的提升，学员在阅读量上的优势越发明显。
       </span>
     </div>
-    <el-divider></el-divider>
-    <div class="effect_compare">
-      <span class="content_title">阅读效果对比图</span>
-      <img src="@/pictures/read12.png" alt="阅读效果对比图" />
-      <img src="@/pictures/read13.png" alt="阅读效果对比图" />
-      <span class="summary"
-        >书籍的选择，阅读环境的构建，正确的引导，是激励孩子持续阅读的重要因素。
-      </span>
-    </div>
+    
   </div>
 </template>
 
@@ -192,6 +183,9 @@ img {
   background-color: #a4bec7;
   color:white;
   border-radius: 6vw;
+}
+.biaoti{
+  width: 100% !important;
 }
 
 @import url("../css/evaluationbackground.less");

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <router-view></router-view>
   </div>
 </template>
@@ -7,21 +8,6 @@
 <script>
 import router from '../config/routes'
 
-
-// import Vue from 'vue'
-// import Vuex from 'vuex'
-// Vue.use(Vuex);
-
-// const store = new Vuex.Store({
-//   state: {
-//     result: {},
-//   },
-//   mutations: {
-//     updataResult(state, newResult) {
-//       state.result = newResult;
-//     },
-//   },
-// })
 
 export default {
   name: "App",

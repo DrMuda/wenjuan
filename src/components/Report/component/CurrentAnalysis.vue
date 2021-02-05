@@ -1,11 +1,9 @@
 <template>
   <div class="current_analysis">
-    <div class="base">
-      <i class="el-icon-s-marketing"></i><span class="title">现状分析</span>
-    </div>
-    <span class="content_title" style="margin-top: 3vw"
+    <img src="@/pictures/b2.png" alt="pic" class="biaoti" />
+    <!-- <span class="content_title" style="margin-top: 3vw"
       >阅读综合指数对比图</span
-    >
+    > -->
     <div class="yueduzs">
       <span class="lt">阅读指数</span>
       <ul>
@@ -18,10 +16,16 @@
       </ul>
     </div>
 
-    <span class="explain">阅读综合指数对比进入书房3年以上学员</span>
-    <div id="chart_one" class="chart_style"></div>
+    <span class="content_title">阅读综合指数一年对比图</span>
     <span class="explain">阅读综合指数对比进入书房1年以上学员</span>
     <div id="chart_two" class="chart_style"></div>
+
+    <span class="content_title" style="margin-top: 5vw"
+      >阅读综合指数三年对比图</span
+    >
+    <span class="explain">阅读综合指数对比进入书房3年以上学员</span>
+    <div id="chart_one" class="chart_style"></div>
+
     <div class="grade_list">
       <span>测试者得分列表</span>
       <el-table
@@ -37,13 +41,15 @@
     </div>
 
     <el-divider></el-divider>
-    <span class="content_title">阅读素养对比图</span>
-    <span class="explain">阅读素养对比进入书房3年以上学员</span>
-    <div id="chart_three"  class="chart_style2"></div>
+    <span class="content_title">阅读素养一年对比图</span>
     <span class="explain">阅读素养对比进入书房1年以上学员</span>
     <div id="chart_four" class="chart_style"></div>
+
+    <span class="content_title" style="margin-top:5vw">阅读素养三年对比图</span>
+    <span class="explain">阅读素养对比进入书房3年以上学员</span>
+    <div id="chart_three" class="chart_style2"></div>
     <div class="grade_list">
-      <img src="@/pictures/read14.png" alt="" />
+      <img src="@/pictures/read14.png" alt="" style="margin-bottom: 3vw" />
       <span>测试者得分列表</span>
       <el-table
         :data="testData2"
@@ -55,26 +61,6 @@
         <el-table-column prop="grade" label="" align="center">
         </el-table-column>
       </el-table>
-    </div>
-    <el-divider></el-divider>
-    <span class="content_title">阅读习惯培养阶段</span>
-    <div
-      class="reading_habits"
-      v-for="item in cultivationOfReading"
-      :key="item.title"
-    >
-      <span class="lt">{{ item.title }}</span>
-      <ul style="margin-top: 3vw; width: 79%">
-        <li>{{ item.content }}</li>
-      </ul>
-    </div>
-    <el-divider></el-divider>
-    <span class="content_title">阅读习惯培养阶段分析</span>
-    <div class="stage_analysis" v-for="item in stageAnalysis" :key="item.title">
-      <span class="lt">{{ item.title }}</span>
-      <ul style="margin-top: 3vw">
-        <li v-html="item.content"></li>
-      </ul>
     </div>
   </div>
 </template>
@@ -119,28 +105,6 @@ export default {
           title: "06 发展期",
           content:
             "阅读素养持续提升，学生视野变宽，格局持续放大，对社会、他人关注度增强，并进行深入思考，并伴随逻辑推断、洞察力的提升。",
-        },
-      ],
-      stageAnalysis: [
-        {
-          title: "所处阶段",
-          content:
-            '根据测试者试听课表现、<span style="font-weight:bold">阅读指数</span>、<span style="font-weight:bold">素养指标</span>，其所处阶段为<span style="font-weight:bold">探索期</span>。',
-        },
-        {
-          title: "阶段特点",
-          content:
-            '本阶段所持续时间为<span style="font-weight:bold">2~3个月</span>，在老师、家长合理引导下，学生会对看书产生基本兴趣，并消除潜在反感情绪。',
-        },
-        {
-          title: "阶段任务",
-          content:
-            '本阶段主要任务为激发学生<span style="font-weight:bold">好奇心</span>、<span style="font-weight:bold">阅读兴趣</span>。',
-        },
-        {
-          title: "阶段完结",
-          content:
-            "初步养成阅读意识，对未知领域提出问题，并愿意通过书本寻找答案。",
         },
       ],
       testData1: [
@@ -208,12 +172,12 @@ export default {
       dataset_label: {
         show: true,
         position: "top",
-        fontSize: document.documentElement.clientWidth>1024? 23 :(12 * document.documentElement.clientWidth) / 375,
+        fontSize:
+          document.documentElement.clientWidth > 1024
+            ? 23
+            : (12 * document.documentElement.clientWidth) / 375,
       },
-      text_style: (
-        (13 * document.documentElement.innerWidth) /
-        450
-      ).toString(),
+      text_style: ((13 * document.documentElement.innerWidth) / 450).toString(),
       timer: null,
     };
   },
@@ -238,13 +202,19 @@ export default {
       var option = {
         legend: {
           textStyle: {
-            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
+            fontSize:
+              document.documentElement.clientWidth > 1024
+                ? 23
+                : this.text_style,
           },
           y: "bottom",
         },
         tooltip: {
           textStyle: {
-            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
+            fontSize:
+              document.documentElement.clientWidth > 1024
+                ? 23
+                : this.text_style,
           },
         },
         dataset: {
@@ -297,8 +267,7 @@ export default {
             fontSize: (function () {
               if (document.documentElement.clientWidth >= 1024) {
                 return "23";
-              }
-              else {
+              } else {
                 return (
                   (13 * document.documentElement.clientWidth) /
                   450
@@ -310,7 +279,10 @@ export default {
         yAxis: {
           max: 100,
           axisLabel: {
-            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
+            fontSize:
+              document.documentElement.clientWidth > 1024
+                ? 23
+                : this.text_style,
           },
         },
         series: [
@@ -361,13 +333,19 @@ export default {
       var option = {
         legend: {
           textStyle: {
-            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
+            fontSize:
+              document.documentElement.clientWidth > 1024
+                ? 23
+                : this.text_style,
           },
           y: "bottom",
         },
         tooltip: {
           textStyle: {
-            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
+            fontSize:
+              document.documentElement.clientWidth > 1024
+                ? 23
+                : this.text_style,
           },
         },
         dataset: {
@@ -430,7 +408,10 @@ export default {
         yAxis: {
           max: 100,
           axisLabel: {
-            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
+            fontSize:
+              document.documentElement.clientWidth > 1024
+                ? 23
+                : this.text_style,
           },
         },
         series: [
@@ -473,14 +454,23 @@ export default {
       option = {
         tooltip: {
           textStyle: {
-            fontSize: document.documentElement.clientWidth>1024? 18:this.text_style,
+            fontSize:
+              document.documentElement.clientWidth > 1024
+                ? 18
+                : this.text_style,
           },
         },
         legend: {
           data: ["测试者得分", "书房3年以上学员平均得分"],
-          y: document.documentElement.clientWidth>1024? 0 :(330 * document.documentElement.clientWidth) / 375,
+          y:
+            document.documentElement.clientWidth > 1024
+              ? 0
+              : (330 * document.documentElement.clientWidth) / 375,
           textStyle: {
-            fontSize: document.documentElement.clientWidth>1024? 18:this.text_style,
+            fontSize:
+              document.documentElement.clientWidth > 1024
+                ? 18
+                : this.text_style,
           },
         },
         textStyle: {
@@ -488,8 +478,11 @@ export default {
         },
         radar: {
           // shape: 'circle',
-          center: ["49%", "50%"],
-          radius: document.documentElement.clientWidth>1024? 280 :(document.documentElement.clientWidth / 375) * 112,
+          center: ["51%", "50%"],
+          radius:
+            document.documentElement.clientWidth > 1024
+              ? 280
+              : (document.documentElement.clientWidth / 375) * 112,
           axisName: {
             textStyle: {
               color: "#fff",
@@ -564,13 +557,19 @@ export default {
       var option = {
         legend: {
           textStyle: {
-            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
+            fontSize:
+              document.documentElement.clientWidth > 1024
+                ? 23
+                : this.text_style,
           },
           y: "bottom",
         },
         tooltip: {
           textStyle: {
-            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
+            fontSize:
+              document.documentElement.clientWidth > 1024
+                ? 23
+                : this.text_style,
           },
         },
         dataset: {
@@ -639,7 +638,10 @@ export default {
         yAxis: {
           max: 100,
           axisLabel: {
-            fontSize: document.documentElement.clientWidth>1024? 23:this.text_style,
+            fontSize:
+              document.documentElement.clientWidth > 1024
+                ? 23
+                : this.text_style,
           },
         },
         series: [
@@ -696,14 +698,13 @@ export default {
       myChart3.resize();
       myChart4.resize();
     },
-    compute_radar(){
-      if(document.documentElement.innerWidth<=1024){
-        return (document.documentElement.innerWidth / 375) * 11
+    compute_radar() {
+      if (document.documentElement.innerWidth <= 1024) {
+        return (document.documentElement.innerWidth / 375) * 11;
+      } else if (document.documentElement.innerWidth > 1009) {
+        return "14";
       }
-      else if(document.documentElement.innerWidth>1009){
-        return "14"
-      }
-    }
+    },
   },
   mounted() {
     this.initEcharts();
@@ -794,8 +795,8 @@ i {
     text-align: center;
     font-size: 5vw;
     width: 80%;
-    height: 10vw;
-    line-height: 10vw;
+    height: 12vw;
+    line-height: 12vw;
     background-color: #ebebeb;
   }
 }
@@ -809,6 +810,10 @@ i {
 .chart_style2 {
   width: 100%;
   height: 98vw;
+}
+
+.biaoti {
+  width: 100% !important;
 }
 @import url("../css/currentanalysis.less");
 </style>
