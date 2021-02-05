@@ -46,7 +46,7 @@
       <span style="margin-top: 2vw;font-size:5vw" class="content_title" 
         >测评建议|具体措施</span>
       <span class="summary" style="color:black;background:rgb(255,250,76)"
-        >根据测评结果及约读书房大数据库，测试者所属阅读习惯培养阶段为：<span style="font-weight:bold">探索期</span></span
+        >根据测评结果及约读书房大数据库，测试者所属阅读习惯培养阶段为：<span style="font-weight:bold">{{tester_period}}</span></span
       >
       <span class="lt">近期行动建议</span>
       <ul>
@@ -131,7 +131,29 @@ export default {
     EvaluationBackground,
     CurrentAnalysis,
   },
-  computed: {},
+  computed:{
+    tester_period:function(){
+      let grade=this.$store.state.result.statistics.readingIndex;
+      if(grade<=70){
+        return "探索期"
+      }
+      else if(grade>70&&grade<=80){
+        return "扩展期"
+      }
+      else if(grade>80&&grade<=85){
+        return "他律期"
+      }
+      else if(grade>85&&grade<=90){
+        return "自律期"
+      }
+      else if(grade>90&&grade<=95){
+        return "习惯期"
+      }
+      else if(grade>95&&grade<=100){
+        return "发展期"
+      }
+    }
+  },
   mounted() {
     // console.log("@@", this.$store.state.result);
     //计算年龄
