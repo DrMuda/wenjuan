@@ -39,7 +39,7 @@ export async function addResult(params = {}) {
 }
 
 export async function checkLinedIsInvalid(params = {}) {
-    // await delay(2000)
+    await delay(2000)
     try {
         const result = await axios.post(
             '/api/studentDatum/checkLinedIsInvalid',
@@ -60,7 +60,7 @@ export async function createVerify() {
     // await delay(5000)
     try {
         const result = await axios.get(
-            "/api/imageVerify/createVerify",
+            "/api/studentDatum/createVerify",
             { responseType: 'arraybuffer' }
         )
         return result
@@ -77,7 +77,7 @@ export async function createVerify() {
 export async function verify(params = {}) {
     try {
         const result = await axios.post(
-            `/api/imageVerify/verify?code=${params}`,
+            `/api/studentDatum/verify?code=${params}`,
             // params
         )
         return result

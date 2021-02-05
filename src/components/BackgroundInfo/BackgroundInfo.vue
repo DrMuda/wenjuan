@@ -1,5 +1,9 @@
 <template>
-  <div class="background_info" style="width: 100 * 0.01 * @basewidth">
+  <el-container
+    class="background_info"
+    v-loading="pageLoading"
+    direction="vertical"
+  >
     <span class="title">读书房入学测评</span>
     <span class="tips">前10道题由学生作答，</span>
     <span class="tips">后10道题由家长作答。</span>
@@ -43,6 +47,7 @@
             @click="changeVerifyCode()"
             :disabled="changeVerifyCodeDisabled"
             v-loading="changeVerifyCodeLoading"
+            style="font-size: 16px !important"
           />
         </div>
         <div class="inputInfo" id="verifyCode">
@@ -50,16 +55,27 @@
         </div>
       </div>
 
-      <el-button class="submit" @click="submit()" type="primary"
+      <el-button
+        class="submit"
+        @click="submit()"
+        type="primary"
+        :disabled="submitDisabled"
         >进入问卷</el-button
       >
     </div>
-  </div>
+  </el-container>
 </template>
 
 <script>
 import Vue from "vue";
-import { Input, Button, DatePicker, Loading, message } from "element-ui";
+import {
+  Input,
+  Button,
+  DatePicker,
+  Loading,
+  message,
+  Container,
+} from "element-ui";
 import { mapActions } from "vuex";
 import {
   checkLinedIsInvalid,
@@ -71,11 +87,14 @@ Vue.use(Input);
 Vue.use(Button);
 Vue.use(DatePicker);
 Vue.use(Loading);
+Vue.use(Container);
 
 export default {
   name: "BackgroundInfo",
   data() {
     return {
+      pageLoading: true,
+      submitDisabled: true,
       changeVerifyCodeDisabled: false,
       changeVerifyCodeLoading: false,
       studentName: "",
@@ -92,7 +111,10 @@ export default {
   },
   async mounted() {
     this.updateResult({});
+    this.$data.pageLoading = true;
+    this.$data.submitDisabled = true;
     const result = await checkLinedIsInvalid();
+    this.$data.pageLoading = false;
     if (!result.data.status) {
       this.$router.push({
         path: "/Invalid",
@@ -101,8 +123,9 @@ export default {
       this.$router.push({
         path: "/Invalid",
       });
-    }else{
+    } else {
       this.changeVerifyCode();
+      this.$data.submitDisabled = false;
     }
   },
   methods: {
@@ -153,7 +176,7 @@ export default {
           message({
             message: "验证码错误",
             type: "error",
-            center:true
+            center: true,
           });
         }
       }
@@ -161,28 +184,32 @@ export default {
     async changeVerifyCode() {
       this.$data.changeVerifyCodeDisabled = true;
       this.$data.changeVerifyCodeLoading = true;
+      this.$data.submitDisabled = true;
       const verifyCodePicEle = document.getElementsByClassName(
         "verifyCodePic"
       )[0];
 
-      const verifyImage = await createVerify();
-      if (verifyImage.status === 200 && verifyImage?.data) {
+      const result = await createVerify();
+      if (result.status === 200 && result?.data) {
         // const img = window.URL.createObjectURL(verifyImage.data);
         const img =
           "data:image/png;base64," +
           btoa(
-            new Uint8Array(verifyImage.data).reduce(
+            new Uint8Array(result.data).reduce(
               (data, byte) => data + String.fromCharCode(byte),
               ""
             )
           );
         verifyCodePicEle.style.backgroundImage = `url(${img})`;
+        this.$data.submitDisabled = false;
       } else {
+        verifyCodePicEle.innerHTML = "点击刷新";
         message({
           message: "网络出错，请稍后再次尝试",
           type: "error",
-            center:true
+          center: true,
         });
+        this.$data.submitDisabled = true;
       }
       this.$data.changeVerifyCodeLoading = false;
       this.$data.changeVerifyCodeDisabled = false;
