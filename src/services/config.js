@@ -39,7 +39,7 @@ export async function addResult(params = {}) {
 }
 
 export async function checkLinedIsInvalid(params = {}) {
-    await delay(2000)
+    // await delay(2000)
     try {
         const result = await axios.post(
             '/api/studentDatum/checkLinedIsInvalid',
@@ -56,37 +56,37 @@ export async function checkLinedIsInvalid(params = {}) {
     }
 }
 
-export async function createVerify() {
-    // await delay(5000)
-    try {
-        const result = await axios.get(
-            "/api/studentDatum/getVerifyCode",
-            { responseType: 'arraybuffer' }
-        )
-        return result
-    } catch (e) {
-        console.error(e)
-        return {
-            data: {
-                status: false
-            }
-        }
-    }
-}
+// export async function createVerify() {
+//     // await delay(5000)
+//     try {
+//         const result = await axios.get(
+//             "/api/studentDatum/getVerifyCode",
+//             { responseType: 'arraybuffer' }
+//         )
+//         return result
+//     } catch (e) {
+//         console.error(e)
+//         return {
+//             data: {
+//                 status: false
+//             }
+//         }
+//     }
+// }
 
-export async function verify(params = {}) {
-    try {
-        const result = await axios.post(
-            `/api/studentDatum/verify?code=${params}`,
-            // params
-        )
-        return result
-    } catch (e) {
-        console.error(e)
-        return {
-            data: {
-                status: false
-            }
-        }
-    }
-}
+// export async function verify(params = {}) {
+//     try {
+//         const result = await axios.post(
+//             `/api/studentDatum/verify?code=${params}`,
+//             // params
+//         )
+//         return result
+//     } catch (e) {
+//         console.error(e)
+//         return {
+//             data: {
+//                 status: false
+//             }
+//         }
+//     }
+// }
