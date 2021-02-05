@@ -119,6 +119,7 @@ export default {
       message({
         message: "网络出错，请稍候再次尝试",
         type: "error",
+        center: true,
       });
     }
   },
@@ -237,6 +238,7 @@ export default {
         const waitMessage = message({
           message: "正在提交结果，请稍等",
           type: "info",
+          center: true,
         });
         document.getElementsByClassName("");
         const submitResult = await addResult(result);
@@ -250,6 +252,7 @@ export default {
           message({
             message: submitResult.data.message,
             type: "error",
+            center: true,
           });
         }
       }
