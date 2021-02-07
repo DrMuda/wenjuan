@@ -115,7 +115,7 @@ export default {
         {
           timu: "阅读习惯",
           grade: this.$store.state.result.statistics.readingHabitsIndex.toFixed(
-            0 
+            0
           ),
         },
         {
@@ -303,24 +303,15 @@ export default {
           {
             type: "bar",
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-                { offset: 0, color: "#348AC7" },
-                { offset: 0.3, color: "#d6daf5" },
-                { offset: 1, color: "#348AC7" },
-              ]),
-              borderRadius: [10, 10, 0, 0],
+              color: "red",
+              // color:"rgb(200,20,20)"
             },
           },
           {
             type: "bar",
             itemStyle: {
-              //24C6DC
-              color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-                { offset: 0, color: "#859398" },
-                { offset: 0.3, color: "#ffffff" },
-                { offset: 1, color: "#859398" },
-              ]),
-              borderRadius: [10, 10, 0, 0],
+              color: "rgb(102,205,255)",
+              // color: "rgb(64,129,143)",
             },
           },
         ],
@@ -432,23 +423,15 @@ export default {
           {
             type: "bar",
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-                { offset: 0, color: "#348AC7" },
-                { offset: 0.3, color: "#d6daf5" },
-                { offset: 1, color: "#348AC7" },
-              ]),
-              borderRadius: [10, 10, 0, 0],
+              // color: "rgb(205,30,0)",
+              color: "rgb(255,50,0)",
             },
           },
           {
             type: "bar",
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-                { offset: 0, color: "#49a09d" },
-                { offset: 0.3, color: "#ffffff" },
-                { offset: 1, color: "#49a09d" },
-              ]),
-              borderRadius: [10, 10, 0, 0],
+              color: "rgb(205,255,104)",
+              // color: "rgb(180,255,80)",
             },
           },
         ],
@@ -493,6 +476,12 @@ export default {
         radar: {
           // shape: 'circle',
           center: ["51%", "50%"],
+          splitLine: {
+              //配置雷达图的每一圈的网格线颜色
+              lineStyle: {
+                color: "orange",
+              },
+            },
           radius:
             document.documentElement.clientWidth > 1024
               ? 280
@@ -521,7 +510,21 @@ export default {
         series: [
           {
             type: "radar",
+            
             data: [
+              {
+                value: [95, 98, 93, 92, 97, 86],
+                name: "书房3年以上学员平均得分",
+                label: {
+                  show: true,
+                },
+                itemStyle: {
+                  color: "rgb(255,234,145)",
+                },
+                areaStyle: {
+                  color: "rgb(255,234,145)",
+                },
+              },
               {
                 value: [
                   test_result.curiosity.toFixed(0),
@@ -535,15 +538,17 @@ export default {
                 label: {
                   show: true,
                 },
-              },
-              {
-                value: [95, 98, 93, 92, 97, 86],
-                name: "书房3年以上学员平均得分",
-                label: {
-                  show: true,
+                itemStyle: {
+                  color: "rgb(225,89,14)",
+                },
+                areaStyle: {
+                  color: "rgb(225,89,14)",
                 },
               },
             ],
+            lineStyle: {
+              // color:'red'
+            },
           },
         ],
       };
@@ -662,24 +667,13 @@ export default {
           {
             type: "bar",
             itemStyle: {
-              color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-                { offset: 0, color: "#348AC7" },
-                { offset: 0.3, color: "#d6daf5" },
-                { offset: 1, color: "#348AC7" },
-              ]),
-              borderRadius: [10, 10, 0, 0],
+              color: "rgb(206,189,99)",
             },
           },
           {
             type: "bar",
             itemStyle: {
-              //24C6DC
-              color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-                { offset: 0, color: "#F3904F" },
-                { offset: 0.3, color: "#ffffff" },
-                { offset: 1, color: "#F3904F" },
-              ]),
-              borderRadius: [10, 10, 0, 0],
+              color: "rgb(7,108,130)",
             },
           },
         ],
