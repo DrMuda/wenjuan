@@ -60,7 +60,7 @@ export async function createVerify() {
     // await delay(5000)
     try {
         const result = await axios.get(
-            "/api/studentDatum/getVerifyCode",
+            "/api/studentDatum/createVerify",
             { responseType: 'arraybuffer' }
         )
         return result
